@@ -38,8 +38,8 @@ def med(message):
 
 
 def noallergies(message):
-    bot.send_message(text="I recommend Michael B. Jordan:", chat_id=message)
-    bot.send_photo(photo="https://imgur.com/a/Ei3tyqj", chat_id=message)
+    bot.send_message(text="I recommend Zhu Ge Liang:", chat_id=message)
+    bot.send_photo(photo="https://imgur.com/ac5G9TS", chat_id=message)
 
 
 
