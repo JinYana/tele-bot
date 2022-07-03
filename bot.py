@@ -14,9 +14,7 @@ def start(message):
     keyboard = [
         [InlineKeyboardButton("I need help with diarrhoea!", callback_data="rec"),]
     ]
-
-    bot.send_photo(photo="https://imgur.com/DvjpvEN", caption="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
-
+    bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -74,9 +72,9 @@ def callback_query(call):
         normaloptions(call.message.chat.id)
 
     elif call.data == "tablets":
-
-        bot.send_message(call.message.chat.id,
-                         "Brand Name: Ultracarbon \n"
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN", caption="We recommend using Ultracarbon"
+                                                                                                "\n"
+                                                                                                "Brand Name: Ultracarbon \n"
                          "\n"
                          "Active Ingredient: Medicinal Charcoal \n"
                          "\n"
@@ -96,7 +94,8 @@ def callback_query(call):
                          "-Stop medication once diarrhea stops or constipations happens. \n"
                          "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling"
-                         " and difficulty in breathing occurs.")
+                         " and difficulty in breathing occurs.",)
+
 
     elif call.data == "capsules":
         bot.send_message(call.message.chat.id,
