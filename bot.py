@@ -341,7 +341,7 @@ def jerod(message):
         [InlineKeyboardButton("Yes", callback_data="yes")],
         [InlineKeyboardButton("No", callback_data="no")],
     ]
-    bot.send_photo(chat_id=message.chat.id, photo="https://imgur.com/a6wX2fT", caption="Do you look like this person?", reply_markup=InlineKeyboardMarkup(keyboard))
+    bot.send_photo(chat_id=message, photo="https://imgur.com/a6wX2fT", caption="Do you look like this person?", reply_markup=InlineKeyboardMarkup(keyboard))
 
 def jerod2(message):
     button1 = KeyboardButton("Send My location", request_location=True),
