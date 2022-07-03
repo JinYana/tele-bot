@@ -1,5 +1,5 @@
 import telebot
-from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, Message
+from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, Message, ReplyKeyboardRemove
 import os
 from flask import Flask, request
 
@@ -245,7 +245,9 @@ def howlong(message):
         [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea")],
                 [InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried")],
     ]
-    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard,), chat_id=message)
+    bot.send_message(text="Alright.", reply_markup= ReplyKeyboardRemove(),
+                     chat_id=message)
+    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
 def triedmedicineduration(message):
@@ -262,6 +264,8 @@ def rawfood(message):
         [InlineKeyboardButton("Yes", callback_data="maybe more serious condition")],
         [InlineKeyboardButton("No", callback_data="got travel")],
     ]
+    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                     chat_id=message)
     bot.send_message(text="Have you eaten anything raw or undercooked recently?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 def diarrhoeasymptoms(message):
