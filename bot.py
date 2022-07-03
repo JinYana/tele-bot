@@ -9,6 +9,9 @@ server = Flask(__name__)
 API_KEY = "5324891918:AAGKD1WX7zyIlX3aLKr-GAICBjenjsH-1Mg"
 bot = telebot.TeleBot(API_KEY)
 
+global currentmsgid
+
+currentmsgid = ""
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -20,9 +23,12 @@ def start(message):
 
 
 @bot.callback_query_handler(func=lambda call: True)
-def callback_query(call):
-    if call.data == "rec":
+def callback_query(call, currentmsgid=None):
+
+    if call.data == "rec" and call.message.chat.id != currentmsgid:
         age(call.message.chat.id)
+
+
 
     # elif call.data == "yes":
     #     jerod2(call.message.chat.id)
@@ -30,68 +36,73 @@ def callback_query(call):
     # elif call.data == "no":
     #     age(call.message.chat.id)
 
-    elif call.data == "unsuitable age":
+    elif call.data == "unsuitable age" and call.message.chat.id != currentmsgid:
         bot.send_message(call.message.chat.id,
                          "Oh no! Due to the age, patient is at high risk of developing complications due to diarrhoea. Be kindly advised to seek treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
+        bot.answer_callback_query(call.id, "hi")
 
-    elif call.data == "how long diarrhoea":
+    elif call.data == "how long diarrhoea" and call.message.chat.id != currentmsgid:
         howlong(call.message.chat.id)
+        bot.answer_callback_query(call.id, "hi")
 
-    elif call.data == "serious diarrhoea":
+    elif call.data == "serious diarrhoea" and call.message.chat.id != currentmsgid:
         bot.send_message(call.message.chat.id,
                          "Oh no! The diarrhoea seems to be much more serious than expected. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
+        bot.answer_callback_query(call.id, "hi")
 
 
 
-    elif call.data == "which medincine have been tried":
+    elif call.data == "which medincine have been tried" and call.message.chat.id != currentmsgid:
         triedmedicine(call.message.chat.id)
 
 
-    elif call.data == "waitandsee":
+    elif call.data == "waitandsee" and call.message.chat.id != currentmsgid:
         bot.send_message(call.message.chat.id,
                          "You might want to continue the medication for 2 days from the first loose stool to see if "
                          "there is any improvement. If there is still no improvement after 2 days, seek treatment from "
                          "a doctor or healthcare professional as soon as possible. Get well soon")
+        bot.answer_callback_query(call.id, "hi")
         bot.stop_polling()
 
-    elif call.data == "maybe more serious condition":
+    elif call.data == "maybe more serious condition" and call.message.chat.id != currentmsgid:
         diarrhoeasymptoms1(call.message.chat.id)
 
-    elif call.data == "diarrhoeasymptoms2":
+    elif call.data == "diarrhoeasymptoms2" and call.message.chat.id != currentmsgid:
         diarrhoeasymptoms2(call.message.chat.id)
 
-    elif call.data == "more serious condition":
+    elif call.data == "more serious condition" and call.message.chat.id != currentmsgid:
         bot.send_message(call.message.chat.id,
                          "Oh no! The symptoms might be a sign of a more serious condition. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon")
-        bot.stop_polling()
+        bot.answer_callback_query(call.id, "hi")
 
-    elif call.data == "got travel":
+
+    elif call.data == "got travel" and call.message.chat.id != currentmsgid:
         travel(call.message.chat.id)
 
-    elif call.data == "got travel2":
+    elif call.data == "got travel2" and call.message.chat.id != currentmsgid:
         travel2(call.message.chat.id)
 
-    elif call.data == "allergies":
+    elif call.data == "allergies" and call.message.chat.id != currentmsgid:
         allergies(call.message.chat.id)
 
-    elif call.data == "have allergy":
+    elif call.data == "have allergy" and call.message.chat.id != currentmsgid:
         bot.send_message(call.message.chat.id,
                          "Oh no! You might want to seek treatment from a doctor or healthcare professional as soon "
                          "as possible to prevent triggering any of the allergies from the medications. Get well soon!")
-        bot.stop_polling()
+        bot.answer_callback_query(call.id, "hi")
 
-    elif call.data == "are you a breastfeeder":
+    elif call.data == "are you a breastfeeder" and call.message.chat.id != currentmsgid:
         breastfeed(call.message.chat.id)
 
-    elif call.data == "pregnant options":
+    elif call.data == "pregnant options" and call.message.chat.id != currentmsgid:
         pregnantoptions(call.message.chat.id)
 
-    elif call.data == "normal options":
+    elif call.data == "normal options" and call.message.chat.id != currentmsgid:
         normaloptions(call.message.chat.id)
 
-    elif call.data == "tablets":
+    elif call.data == "tablets" and call.message.chat.id != currentmsgid:
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
                        caption="We recommend using Ultracarbon"
                                "\n"
@@ -117,11 +128,11 @@ def callback_query(call):
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling"
                                " and difficulty in breathing occurs.", )
 
-        bot.end
+        bot.answer_callback_query(call.id, "hi")
 
 
 
-    elif call.data == "capsules":
+    elif call.data == "capsules" and call.message.chat.id != currentmsgid:
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
                        caption="We recommend using Norit\n"
                                "Brand Name: Norit \n"
@@ -146,10 +157,10 @@ def callback_query(call):
                                "-Stop medication once diarrhea stops or constipations happens. \n"
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
-        bot.stop_polling()
+        bot.answer_callback_query(call.id, "hi")
 
 
-    elif call.data == "liquid":
+    elif call.data == "liquid" and call.message.chat.id != currentmsgid:
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
                        caption="We recommend using Kaomix\n"
                                "Brand Name: Kaomix \n"
@@ -175,10 +186,10 @@ def callback_query(call):
                                "-Stop medication once diarrhea stops or constipations happens.\n"
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
-        bot.stop_polling()
+        bot.answer_callback_query(call.id, "hi")
 
 
-    elif call.data == "powder":
+    elif call.data == "powder" and call.message.chat.id != currentmsgid:
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
                        caption="We recommend using Smecta\n"
                                "Brand Name: Smecta \n"
@@ -200,7 +211,8 @@ def callback_query(call):
                                "-Space 2 hours apart with any other medications. \n"
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
-        bot.stop_polling()
+        bot.answer_callback_query(call.id, "hi")
+
 
 
 @bot.message_handler(func=lambda call: True)
