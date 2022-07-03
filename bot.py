@@ -279,7 +279,7 @@ def diarrhoeasymptoms1(message):
 
     keyboard = [
         [InlineKeyboardButton("Yes", callback_data="more serious condition")],
-        [InlineKeyboardButton("No", callback_data="got travel")],
+        [InlineKeyboardButton("No", callback_data="got travel2")],
     ]
     bot.send_message(text="Have the patient displayed any of the symptoms below? \n"
                           "\n"
