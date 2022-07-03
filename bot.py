@@ -27,6 +27,7 @@ def callback_query(call, currentmsgid=None):
 
     if call.data == "rec" and call.message.chat.id != currentmsgid:
         age(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
 
 
 
@@ -63,13 +64,15 @@ def callback_query(call, currentmsgid=None):
                          "there is any improvement. If there is still no improvement after 2 days, seek treatment from "
                          "a doctor or healthcare professional as soon as possible. Get well soon")
         bot.answer_callback_query(call.id, "")
-        bot.stop_polling()
+
 
     elif call.data == "maybe more serious condition" and call.message.chat.id != currentmsgid:
         diarrhoeasymptoms1(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "diarrhoeasymptoms2" and call.message.chat.id != currentmsgid:
         diarrhoeasymptoms2(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "more serious condition" and call.message.chat.id != currentmsgid:
         bot.send_message(call.message.chat.id,
@@ -80,12 +83,15 @@ def callback_query(call, currentmsgid=None):
 
     elif call.data == "got travel" and call.message.chat.id != currentmsgid:
         travel(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "got travel2" and call.message.chat.id != currentmsgid:
         travel2(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "allergies" and call.message.chat.id != currentmsgid:
         allergies(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "have allergy" and call.message.chat.id != currentmsgid:
         bot.send_message(call.message.chat.id,
@@ -95,12 +101,15 @@ def callback_query(call, currentmsgid=None):
 
     elif call.data == "are you a breastfeeder" and call.message.chat.id != currentmsgid:
         breastfeed(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "pregnant options" and call.message.chat.id != currentmsgid:
         pregnantoptions(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "normal options" and call.message.chat.id != currentmsgid:
         normaloptions(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "tablets" and call.message.chat.id != currentmsgid:
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
