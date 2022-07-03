@@ -43,10 +43,14 @@ def callback_query(call):
                          "there is any improvement. If there is still no improvement after 2 days, seek treatment from "
                          "a doctor or healthcare professional as soon as possible. Get well soon")
 
+    elif call.data == "maybe more serious condition":
+        diarrhoeasymptoms(call.message.chat.id)
+
     elif call.data == "more serious condition":
         bot.send_message(call.message.chat.id,
                          "Oh no! The symptoms might be a sign of a more serious condition. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon")
+
     elif call.data == "got travel":
         travel(call.message.chat.id)
 
@@ -129,18 +133,38 @@ def triedmedicineduration(message):
 def rawfood(message):
 
     keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("Yes", callback_data="maybe more serious condition")],
         [InlineKeyboardButton("No", callback_data="got travel")],
     ]
-    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+    bot.send_message(text="Have you eaten anything raw or undercooked recently?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
-def travel(message):
+def diarrhoeasymptoms(message):
 
     keyboard = [
         [InlineKeyboardButton("Yes", callback_data="more serious condition")],
         [InlineKeyboardButton("No", callback_data="got travel")],
     ]
-    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+    bot.send_message(text="Have the patient displayed any of the symptoms below? \n"
+                          "For adults: \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Fever above 39 degrees Celsius \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin \n"
+                          "For children: \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Sunken stomach, eyes or cheeks \n"
+                          "-Sleepy or unresponsive-Cries with no tears or dry mouth \n"
+                          "Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin",
+                     reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
+def travel(message):
+
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="allergies")],
+        [InlineKeyboardButton("No", callback_data="more serious condition")],
+    ]
+    bot.send_message(text="Have you travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
 
