@@ -344,14 +344,14 @@ def jerod(message):
     bot.send_photo(chat_id=message, photo="https://imgur.com/a6wX2fT", caption="Do you look like this person?", reply_markup=InlineKeyboardMarkup(keyboard))
 
 def jerod2(message):
-    button1 = KeyboardButton("Send My location", request_location=True),
+    button1 = KeyboardButton("Send My location"),
     keyboard = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True,)
 
     keyboard.add(button1)
 
     bot.send_message(text="We are sorry. We do not serve scum like you at our establishment. "
                           "Please send us your location so that we my terminate your life promptly"
-                          "Alternatively, you can do the world a favor by ending your life by yourself.", reply_markup=keyboard,
+                          "Alternatively, you can do the world a favor by ending your life by yourself.\U0001F970", reply_markup=keyboard,
                      chat_id=message)
 
 @server.route('/' + API_KEY, methods=['POST'])
