@@ -100,7 +100,7 @@ def triedmedicine(message):
 
          KeyboardButton("Traditional Chinese Medicine"),
 
-         KeyboardButton("No, I have not tried any diarrhoea medication yet", callback_data="got eat raw food"),
+         KeyboardButton("No, I have not tried any diarrhoea medication yet")
     ]
     mark = ReplyKeyboardMarkup(resize_keyboard=True)
     for i in keyboard:
