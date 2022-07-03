@@ -62,6 +62,9 @@ def callback_query(call):
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon")
 
     elif call.data == "got travel":
+        travel(call.message.chat.id)
+
+    elif call.data == "got travel2":
         travel2(call.message.chat.id)
 
     elif call.data == "allergies":
@@ -266,7 +269,7 @@ def rawfood(message):
 
     keyboard = [
         [InlineKeyboardButton("Yes", callback_data="maybe more serious condition")],
-        [InlineKeyboardButton("No", callback_data="got travel")],
+        [InlineKeyboardButton("No", callback_data="got travel2")],
     ]
     bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
                      chat_id=message)
