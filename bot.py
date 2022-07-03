@@ -145,11 +145,13 @@ def diarrhoeasymptoms(message):
         [InlineKeyboardButton("No", callback_data="got travel")],
     ]
     bot.send_message(text="Have the patient displayed any of the symptoms below? \n"
+                          "\n"
                           "For adults: \n"
                           "-Black sticky or bloody stools \n"
                           "-Fever above 39 degrees Celsius \n"
                           "-Severe pain in the stomach or anus area \n"
                           "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin \n"
+                          "\n"
                           "For children: \n"
                           "-Black sticky or bloody stools \n"
                           "-Severe pain in the stomach or anus area \n"
