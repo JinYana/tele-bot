@@ -1,5 +1,5 @@
 import telebot
-from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
+from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton, Message
 import os
 from flask import Flask, request
 
@@ -36,17 +36,12 @@ def callback_query(call):
     elif call.data == "which medincine have been tried":
         triedmedicine(call.message.chat.id)
 
-    elif call.data == "Diarrhoea medicine how long":
-        triedmedicineduration(call.message.chat.id)
 
     elif call.data == "waitandsee":
         bot.send_message(call.message.chat.id,
                          "Patient might want to continue the medication for 2 days from the first loose stool to see if "
                          "there is any improvement. If there is still no improvement after 2 days, seek treatment from "
                          "a doctor or healthcare professional as soon as possible. Get well soon")
-
-    elif call.data == "got eat raw food":
-        rawfood(call.message.chat.id)
 
     elif call.data == "more serious condition":
         bot.send_message(call.message.chat.id,
@@ -56,6 +51,20 @@ def callback_query(call):
         travel(call.message.chat.id)
 
 
+@bot.message_handler()
+async def answer(message: Message):
+    if message.text == "Loperamide (Brand Name: Imodium)" \
+            or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
+            or message.text == "Kaolin"\
+            or message.text == "Medicinal Charcoal"\
+            or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
+        triedmedicineduration(message.chat.id)
+
+    elif message.text == "Lactobacillus Acidophilus (Brand Name: Lacteol Forte)" \
+        or message.text == "Oral Rehydration Salts (Brand Name: Hydralyte)" \
+        or message.text == "Traditional Chinese Medicine" \
+        or message.text == "No, I have not tried any diarrhoea medication yet":
+        rawfood(message.chat.id)
 
 
 
@@ -76,13 +85,7 @@ def age(message):
 
 
 def triedmedicine(message):
-    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
-    button = KeyboardButton("Loperamide (Brand Name: Imodium)")
-    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
-    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
-    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
-    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
-    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
+
     keyboard = [
         KeyboardButton("Loperamide (Brand Name: Imodium)"),
 
@@ -102,7 +105,7 @@ def triedmedicine(message):
 
          KeyboardButton("No, I have not tried any diarrhoea medication yet")
     ]
-    mark = ReplyKeyboardMarkup(resize_keyboard=True)
+    mark = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
     for i in keyboard:
         mark.add(i)
     bot.send_message(text="Have you tried any of the diarrhoea medication below?", reply_markup=mark, chat_id=message)
