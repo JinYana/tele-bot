@@ -235,7 +235,7 @@ def triedmedicine(message):
 
          KeyboardButton("No, I have not tried any diarrhoea medication yet")
     ]
-    mark = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    mark = ReplyKeyboardMarkup(one_time_keyboard=True)
     for i in keyboard:
         mark.add(i)
     bot.send_message(text="Have you tried any of the diarrhoea medication below?", reply_markup=mark, chat_id=message)
@@ -245,7 +245,7 @@ def howlong(message):
         [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea")],
                 [InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried")],
     ]
-    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard,), chat_id=message)
 
 
 def triedmedicineduration(message):
