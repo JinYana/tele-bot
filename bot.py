@@ -58,7 +58,7 @@ async def answer(message: Message):
             or message.text == "Kaolin"\
             or message.text == "Medicinal Charcoal"\
             or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
-        await  message.r
+        triedmedicineduration(message.chat.id)
 
     elif message.text == "Lactobacillus Acidophilus (Brand Name: Lacteol Forte)" \
         or message.text == "Oral Rehydration Salts (Brand Name: Hydralyte)" \
