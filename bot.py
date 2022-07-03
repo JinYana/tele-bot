@@ -344,8 +344,8 @@ def jerod(message):
     bot.send_photo(chat_id=message, photo="https://imgur.com/a6wX2fT", caption="Do you look like this person?", reply_markup=InlineKeyboardMarkup(keyboard))
 
 def jerod2(message):
-    button1 = KeyboardButton("Send My location"),
-    keyboard = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True,)
+    button1 = KeyboardButton("Send My location", request_location=True)
+    keyboard = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
 
     keyboard.add(button1)
 
