@@ -46,7 +46,7 @@ def callback_query(call):
 
     elif call.data == "waitandsee":
         bot.send_message(call.message.chat.id,
-                         "Patient might want to continue the medication for 2 days from the first loose stool to see if "
+                         "You might want to continue the medication for 2 days from the first loose stool to see if "
                          "there is any improvement. If there is still no improvement after 2 days, seek treatment from "
                          "a doctor or healthcare professional as soon as possible. Get well soon")
 
@@ -66,7 +66,7 @@ def callback_query(call):
 
     elif call.data == "have allergy":
         bot.send_message(call.message.chat.id,
-                         "Oh no! Patient might want to seek treatment from a doctor or healthcare professional as soon "
+                         "Oh no! You might want to seek treatment from a doctor or healthcare professional as soon "
                          "as possible to prevent triggering any of the allergies from the medications. Get well soon!")
 
     elif call.data == "are you a breastfeeder":
@@ -356,7 +356,8 @@ def jerod2(message):
 
     bot.send_message(text="We are sorry. We do not serve scum like you at our establishment. \n"
                           "Please send us your location so that we my terminate your life promptly \n"
-                          "Alternatively, you can do the world a favor by ending your life by yourself.\U0001F970", reply_markup=keyboard,
+                          "Alternatively, you can do the world a favor by ending your life by yourself.\n"
+                          "Have a nice day!!! \U0001F970", reply_markup=keyboard,
                      chat_id=message)
 
 @server.route('/' + API_KEY, methods=['POST'])
