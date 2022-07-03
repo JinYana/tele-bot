@@ -52,7 +52,7 @@ def callback_query(call):
 
 
 @bot.message_handler(func=lambda call: True)
-async def answer(message: Message):
+def answer(message: Message):
     if message.text == "Loperamide (Brand Name: Imodium)" \
             or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
             or message.text == "Kaolin"\
