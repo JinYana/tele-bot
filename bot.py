@@ -1,5 +1,5 @@
 import telebot
-from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
+from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
 import os
 from flask import Flask, request
 
@@ -77,19 +77,19 @@ def age(message):
 
 def triedmedicine(message):
     keyboard = [
-        [InlineKeyboardButton("Loperamide (Brand Name: Imodium)", callback_data="Diarrhoea medicine how long")],
-         [InlineKeyboardButton("Diphenoxylate / Atropine (Brand Name: Dhamotil)", callback_data="Diarrhoea medicine how long")],
-         [InlineKeyboardButton("Kaolin", callback_data="Diarrhoea medicine how long")],
-         [InlineKeyboardButton("Medicinal Charcoal", callback_data="Diarrhoea medicine how long")],
-         [InlineKeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)", callback_data="Diarrhoea medicine how long")],
-         [InlineKeyboardButton("Lactobacillus Acidophilus \n"
+        [KeyboardButton("Loperamide (Brand Name: Imodium)", callback_data="Diarrhoea medicine how long")],
+         [KeyboardButton("Diphenoxylate / Atropine (Brand Name: Dhamotil)", callback_data="Diarrhoea medicine how long")],
+         [KeyboardButton("Kaolin", callback_data="Diarrhoea medicine how long")],
+         [KeyboardButton("Medicinal Charcoal", callback_data="Diarrhoea medicine how long")],
+         [KeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)", callback_data="Diarrhoea medicine how long")],
+         [KeyboardButton("Lactobacillus Acidophilus \n"
                                "(Brand Name: Lacteol Forte)", callback_data="got eat raw food")],
-         [InlineKeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)", callback_data="got eat raw food")],
-         [InlineKeyboardButton("Traditional Chinese Medicine", callback_data="got eat raw food")],
-         [InlineKeyboardButton("No, I have not tried any \n"
+         [KeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)", callback_data="got eat raw food")],
+         [KeyboardButton("Traditional Chinese Medicine", callback_data="got eat raw food")],
+         [KeyboardButton("No, I have not tried any \n"
                                "diarrhoea medication yet", callback_data="got eat raw food")],
     ]
-    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True), chat_id=message)
 
 def howlong(message):
     keyboard = [
