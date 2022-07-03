@@ -20,13 +20,13 @@ def start(message):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     if call.data == "rec":
-        jerod(call.message.chat.id)
-
-    elif call.data == "yes":
-        jerod2(call.message.chat.id)
-
-    elif call.data == "no":
         age(call.message.chat.id)
+
+    # elif call.data == "yes":
+    #     jerod2(call.message.chat.id)
+    #
+    # elif call.data == "no":
+    #     age(call.message.chat.id)
 
     elif call.data == "unsuitable age":
         bot.send_message(call.message.chat.id,
@@ -51,7 +51,10 @@ def callback_query(call):
                          "a doctor or healthcare professional as soon as possible. Get well soon")
 
     elif call.data == "maybe more serious condition":
-        diarrhoeasymptoms(call.message.chat.id)
+        diarrhoeasymptoms1(call.message.chat.id)
+
+    elif call.data == "diarrhoeasymptoms2":
+        diarrhoeasymptoms2(call.message.chat.id)
 
     elif call.data == "more serious condition":
         bot.send_message(call.message.chat.id,
@@ -59,7 +62,7 @@ def callback_query(call):
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon")
 
     elif call.data == "got travel":
-        travel(call.message.chat.id)
+        travel2(call.message.chat.id)
 
     elif call.data == "allergies":
         allergies(call.message.chat.id)
@@ -238,7 +241,7 @@ def triedmedicine(message):
     mark = ReplyKeyboardMarkup(one_time_keyboard=True)
     for i in keyboard:
         mark.add(i)
-    bot.send_message(text="Have you tried any of the diarrhoea medication below?", reply_markup=mark, chat_id=message)
+    bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark, chat_id=message)
 
 def howlong(message):
     keyboard = [
@@ -256,7 +259,7 @@ def triedmedicineduration(message):
     ]
     bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
                      chat_id=message)
-    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+    bot.send_message(text="How long has the patient been taking the medication for with no improvement? (Counting from the first loose stool)", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
 def rawfood(message):
@@ -267,9 +270,9 @@ def rawfood(message):
     ]
     bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
                      chat_id=message)
-    bot.send_message(text="Have you eaten anything raw or undercooked recently?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+    bot.send_message(text="Has the patient eaten anything raw or undercooked recently?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
-def diarrhoeasymptoms(message):
+def diarrhoeasymptoms1(message):
 
     keyboard = [
         [InlineKeyboardButton("Yes", callback_data="more serious condition")],
@@ -288,24 +291,53 @@ def diarrhoeasymptoms(message):
                           "-Severe pain in the stomach or anus area \n"
                           "-Sunken stomach, eyes or cheeks \n"
                           "-Sleepy or unresponsive-Cries with no tears or dry mouth \n"
-                          "Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin",
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin",
+                     reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
+def diarrhoeasymptoms2(message):
+
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("No", callback_data="allergies")],
+    ]
+    bot.send_message(text="Have the patient displayed any of the symptoms below? \n"
+                          "\n"
+                          "For adults: \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Fever above 39 degrees Celsius \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin \n"
+                          "\n"
+                          "For children: \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Sunken stomach, eyes or cheeks \n"
+                          "-Sleepy or unresponsive-Cries with no tears or dry mouth \n"
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin",
                      reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 def travel(message):
 
     keyboard = [
         [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("No", callback_data="diarrhoeasymptoms2")],
+    ]
+    bot.send_message(text="Has the patient travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
+def travel2(message):
+
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
         [InlineKeyboardButton("No", callback_data="allergies")],
     ]
-    bot.send_message(text="Have you travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
-
+    bot.send_message(text="Has the patient travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 def allergies(message):
     keyboard = [
         [InlineKeyboardButton("Yes", callback_data="have allergy")],
         [InlineKeyboardButton("No", callback_data="are you a breastfeeder")],
     ]
-    bot.send_message(text="Are you allergic to any of the medication below?\n"
+    bot.send_message(text="Is the patient allergic to any of the medication below?\n"
                           "\n"
                           "-Aluminum Silicates \n"
                           "-Medicinal Charcoal \n"
@@ -317,7 +349,7 @@ def breastfeed(message):
         [InlineKeyboardButton("Yes", callback_data="pregnant options")],
         [InlineKeyboardButton("No", callback_data="normal options")],
     ]
-    bot.send_message(text="Are you current pregnant or breastfeeding?", reply_markup=InlineKeyboardMarkup(keyboard),
+    bot.send_message(text="Is pregnancy or breastfeeding an issue to the patient?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
 
 def normaloptions(message):
@@ -328,7 +360,7 @@ def normaloptions(message):
         [InlineKeyboardButton("Powder Sachets", callback_data="powder")],
         [InlineKeyboardButton("No Preference", callback_data="tablets")],
     ]
-    bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
+    bot.send_message(text="What kind of medicine will the patient prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
 
 
@@ -341,24 +373,24 @@ def pregnantoptions(message):
     ]
     bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
-def jerod(message):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="yes")],
-        [InlineKeyboardButton("No", callback_data="no")],
-    ]
-    bot.send_photo(chat_id=message, photo="https://imgur.com/a6wX2fT", caption="Do you look like this person?", reply_markup=InlineKeyboardMarkup(keyboard))
-
-def jerod2(message):
-    button1 = KeyboardButton("Send My location", request_location=True)
-    keyboard = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-
-    keyboard.add(button1)
-
-    bot.send_message(text="We are sorry. We do not serve scum like you at our establishment. \n"
-                          "Please send us your location so that we my terminate your life promptly \n"
-                          "Alternatively, you can do the world a favor by ending your life by yourself.\n"
-                          "Have a nice day!!! \U0001F970", reply_markup=keyboard,
-                     chat_id=message)
+# def jerod(message):
+#     keyboard = [
+#         [InlineKeyboardButton("Yes", callback_data="yes")],
+#         [InlineKeyboardButton("No", callback_data="no")],
+#     ]
+#     bot.send_photo(chat_id=message, photo="https://imgur.com/a6wX2fT", caption="Do you look like this person?", reply_markup=InlineKeyboardMarkup(keyboard))
+#
+# def jerod2(message):
+#     button1 = KeyboardButton("Send My location", request_location=True)
+#     keyboard = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
+#
+#     keyboard.add(button1)
+#
+#     bot.send_message(text="We are sorry. We do not serve scum like you at our establishment. \n"
+#                           "Please send us your location so that we my terminate your life promptly \n"
+#                           "Alternatively, you can do the world a favor by ending your life by yourself.\n"
+#                           "Have a nice day!!! \U0001F970", reply_markup=keyboard,
+#                      chat_id=message)
 
 @server.route('/' + API_KEY, methods=['POST'])
 def getMessage():
