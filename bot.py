@@ -418,7 +418,6 @@ def getMessage():
 @server.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.webh
     bot.set_webhook(url='https://pharmacy-botty.herokuapp.com/' + API_KEY)
     return "!", 200
 
