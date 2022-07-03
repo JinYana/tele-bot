@@ -245,8 +245,7 @@ def howlong(message):
         [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea")],
                 [InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried")],
     ]
-    bot.send_message(text="Alright.", reply_markup= ReplyKeyboardRemove(),
-                     chat_id=message)
+
     bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
@@ -255,6 +254,8 @@ def triedmedicineduration(message):
         [InlineKeyboardButton("Less than 2 days", callback_data="waitandsee")],
         [InlineKeyboardButton("More than 2 days", callback_data="serious diarrhoea")],
     ]
+    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                     chat_id=message)
     bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
