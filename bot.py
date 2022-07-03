@@ -39,7 +39,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id,
                          "Oh no! The diarrhoea seems to be much more serious than expected. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
-        bot.stop_polling()
+        bot.stop_bot()
 
     elif call.data == "which medincine have been tried":
         triedmedicine(call.message.chat.id)
@@ -112,7 +112,7 @@ def callback_query(call):
                          "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling"
                          " and difficulty in breathing occurs.",)
-        bot.stop_polling()
+        bot.stop_bot()
 
 
     elif call.data == "capsules":
