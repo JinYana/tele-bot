@@ -62,26 +62,15 @@ def callback_query(call):
 #Diarrhoea bot
 def age(message):
     keyboard = [
-        [
-            {
-                InlineKeyboardButton("Infant (0-1 Y.O.)", callback_data="unsuitable age")
-            },
 
-            {
-                InlineKeyboardButton("Elderly (65 Y.O. and above)", callback_data="unsuitable age")
-            },
+        [InlineKeyboardButton("Infant (0-1 Y.O.)", callback_data="unsuitable age")],
 
-            {
-                InlineKeyboardButton("Children (2-17 Y.O.)", callback_data="how long diarrhoea")
-             },
+        [InlineKeyboardButton("Elderly (65 Y.O. and above)", callback_data="unsuitable age")],
 
-            {
-                InlineKeyboardButton("Adult (18-64 Y.O.)", callback_data="how long diarrhoea")
-             },
+        [InlineKeyboardButton("Children (2-17 Y.O.)", callback_data="how long diarrhoea")],
 
+        [InlineKeyboardButton("Adult (18-64 Y.O.)", callback_data="how long diarrhoea")],
 
-
-        ]
     ]
     bot.send_message(text="How old is the patient?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
