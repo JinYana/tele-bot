@@ -1,5 +1,5 @@
 import telebot
-from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
+from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 import os
 from flask import Flask, request
 
@@ -67,7 +67,7 @@ def age(message):
          InlineKeyboardButton("Children (2-17 Y.O.)", callback_data="how long diarrhoea"),
          InlineKeyboardButton("Adult (18-64 Y.O.)", callback_data="how long diarrhoea"),]
     ]
-    bot.send_message(text="How old is the patient?", reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True), chat_id=message)
+    bot.send_message(text="How old is the patient?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
 def triedmedicine(message):
