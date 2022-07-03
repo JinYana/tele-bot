@@ -15,7 +15,7 @@ def start(message):
         [InlineKeyboardButton("I need help with diarrhoea!", callback_data="rec"),]
     ]
 
-    bot.send_photo("https://imgur.com/DvjpvEN", caption="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
+    bot.send_photo(photo="https://imgur.com/DvjpvEN", caption="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
 
 
 
