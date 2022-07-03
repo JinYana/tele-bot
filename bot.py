@@ -20,7 +20,14 @@ def start(message):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
     if call.data == "rec":
+        jerod(call.message.chat.id)
+
+    elif call.data == "yes":
+        jerod2(call.message.chat.id)
+
+    elif call.data == "no":
         age(call.message.chat.id)
+
     elif call.data == "unsuitable age":
         bot.send_message(call.message.chat.id,
                          "Oh no! Due to the age, patient is at high risk of developing complications due to diarrhoea. Be kindly advised to seek treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
@@ -98,8 +105,8 @@ def callback_query(call):
 
 
     elif call.data == "capsules":
-        bot.send_message(call.message.chat.id,
-                         "Brand Name: Norit \n"
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN", caption= "We recommend using Norit\n"
+                                                                                                 "Brand Name: Norit \n"
                          "\n"
                          "Active Ingredient: Medicinal Charcoal \n"
                          "\n"
@@ -122,8 +129,9 @@ def callback_query(call):
                          "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
 
+
     elif call.data == "liquid":
-        bot.send_message(call.message.chat.id,
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN", caption= "We recommend using Kaomix\n"
                          "Brand Name: Kaomix \n"
                          "\n"
                          "Active Ingredient: Aluminum Silicates \n"
@@ -148,9 +156,10 @@ def callback_query(call):
                          "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
 
+
     elif call.data == "powder":
-        bot.send_message(call.message.chat.id,
-                         "Brand Name: Smecta \n"
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN", caption= "We recommend using Smecta\n"
+                                                                                                 "Brand Name: Smecta \n"
                          "\n"
                          "Active Ingredient: Dioctahedral Smectite \n"
                          "\n"
@@ -169,6 +178,7 @@ def callback_query(call):
                          "-Space 2 hours apart with any other medications. \n"
                          "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+
 
 
 @bot.message_handler(func=lambda call: True)
@@ -326,7 +336,21 @@ def pregnantoptions(message):
     ]
     bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
+def jerod(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="yes")],
+        [InlineKeyboardButton("No", callback_data="no")],
+    ]
+    bot.send_photo(chat_id=message.chat.id, photo="https://imgur.com/a6wX2fT", caption="Do you look like this person?", reply_markup=InlineKeyboardMarkup(keyboard))
 
+def jerod2(message):
+    button1 = KeyboardButton("Send My location", request_location=True),
+    keyboard = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True,)
+
+    bot.send_message(text="We are sorry. We do not serve scum like you at our establishment. "
+                          "Please send us your location so that we my terminate your life promptly"
+                          "Alternatively, you can do the world a favor by ending your life by yourself. \U0001F970", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
 
 @server.route('/' + API_KEY, methods=['POST'])
 def getMessage():
