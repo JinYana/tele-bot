@@ -347,6 +347,8 @@ def jerod2(message):
     button1 = KeyboardButton("Send My location", request_location=True),
     keyboard = ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True,)
 
+    keyboard.add(button1)
+
     bot.send_message(text="We are sorry. We do not serve scum like you at our establishment. "
                           "Please send us your location so that we my terminate your life promptly"
                           "Alternatively, you can do the world a favor by ending your life by yourself. \U0001F970", reply_markup=InlineKeyboardMarkup(keyboard),
