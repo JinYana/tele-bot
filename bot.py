@@ -82,10 +82,12 @@ def triedmedicine(message):
          [InlineKeyboardButton("Kaolin", callback_data="Diarrhoea medicine how long")],
          [InlineKeyboardButton("Medicinal Charcoal", callback_data="Diarrhoea medicine how long")],
          [InlineKeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)", callback_data="Diarrhoea medicine how long")],
-         [InlineKeyboardButton("Lactobacillus Acidophilus\n(Brand Name: Lacteol Forte)", callback_data="got eat raw food")],
+         [InlineKeyboardButton("Lactobacillus Acidophilus \n"
+                               "(Brand Name: Lacteol Forte)", callback_data="got eat raw food")],
          [InlineKeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)", callback_data="got eat raw food")],
          [InlineKeyboardButton("Traditional Chinese Medicine", callback_data="got eat raw food")],
-         [InlineKeyboardButton("No, I have not tried any\ndiarrhoea medication yet", callback_data="got eat raw food")],
+         [InlineKeyboardButton("No, I have not tried any \n"
+                               "diarrhoea medication yet", callback_data="got eat raw food")],
     ]
     bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
