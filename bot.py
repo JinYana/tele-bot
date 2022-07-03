@@ -77,30 +77,35 @@ def age(message):
 
 def triedmedicine(message):
     button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
-    # keyboard = [
-    #     KeyboardButton("Loperamide (Brand Name: Imodium)", callback_data="Diarrhoea medicine how long"),
-    #
-    #      KeyboardButton("Diphenoxylate / Atropine (Brand Name: Dhamotil)", callback_data="Diarrhoea medicine how long"),
-    #
-    #      KeyboardButton("Kaolin", callback_data="Diarrhoea medicine how long"),
-    #
-    #      KeyboardButton("Medicinal Charcoal", callback_data="Diarrhoea medicine how long"),
-    #
-    #      KeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)", callback_data="Diarrhoea medicine how long"),
-    #
-    #      KeyboardButton("Lactobacillus Acidophilus \n"
-    #                            "(Brand Name: Lacteol Forte)", callback_data="got eat raw food"),
-    #
-    #      KeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)", callback_data="got eat raw food"),
-    #
-    #      KeyboardButton("Traditional Chinese Medicine", callback_data="got eat raw food"),
-    #
-    #      KeyboardButton("No, I have not tried any \n"
-    #                            "diarrhoea medication yet", callback_data="got eat raw food"),
-    # ]
+    button = KeyboardButton("Loperamide (Brand Name: Imodium)")
+    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
+    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
+    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
+    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
+    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
+    keyboard = [
+        KeyboardButton("Loperamide (Brand Name: Imodium)"),
+
+         KeyboardButton("Diphenoxylate / Atropine (Brand Name: Dhamotil)"),
+
+         KeyboardButton("Kaolin"),
+
+         KeyboardButton("Medicinal Charcoal"),
+
+         KeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)"),
+
+         KeyboardButton("Lactobacillus Acidophilus (Brand Name: Lacteol Forte)"),
+
+         KeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)"),
+
+         KeyboardButton("Traditional Chinese Medicine"),
+
+         KeyboardButton("No, I have not tried any diarrhoea medication yet", callback_data="got eat raw food"),
+    ]
     mark = ReplyKeyboardMarkup(resize_keyboard=True)
-    mark.add(button1)
-    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=mark, chat_id=message)
+    for i in keyboard:
+        mark.add(i)
+    bot.send_message(text="Have you tried any of the diarrhoea medication below?", reply_markup=mark, chat_id=message)
 
 def howlong(message):
     keyboard = [
