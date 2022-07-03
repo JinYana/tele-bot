@@ -39,17 +39,17 @@ def callback_query(call, currentmsgid=None):
     elif call.data == "unsuitable age" and call.message.chat.id != currentmsgid:
         bot.send_message(call.message.chat.id,
                          "Oh no! Due to the age, patient is at high risk of developing complications due to diarrhoea. Be kindly advised to seek treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "how long diarrhoea" and call.message.chat.id != currentmsgid:
         howlong(call.message.chat.id)
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "serious diarrhoea" and call.message.chat.id != currentmsgid:
         bot.send_message(call.message.chat.id,
                          "Oh no! The diarrhoea seems to be much more serious than expected. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
 
 
 
@@ -62,7 +62,7 @@ def callback_query(call, currentmsgid=None):
                          "You might want to continue the medication for 2 days from the first loose stool to see if "
                          "there is any improvement. If there is still no improvement after 2 days, seek treatment from "
                          "a doctor or healthcare professional as soon as possible. Get well soon")
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
         bot.stop_polling()
 
     elif call.data == "maybe more serious condition" and call.message.chat.id != currentmsgid:
@@ -75,7 +75,7 @@ def callback_query(call, currentmsgid=None):
         bot.send_message(call.message.chat.id,
                          "Oh no! The symptoms might be a sign of a more serious condition. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon")
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
 
 
     elif call.data == "got travel" and call.message.chat.id != currentmsgid:
@@ -91,7 +91,7 @@ def callback_query(call, currentmsgid=None):
         bot.send_message(call.message.chat.id,
                          "Oh no! You might want to seek treatment from a doctor or healthcare professional as soon "
                          "as possible to prevent triggering any of the allergies from the medications. Get well soon!")
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
 
     elif call.data == "are you a breastfeeder" and call.message.chat.id != currentmsgid:
         breastfeed(call.message.chat.id)
@@ -128,7 +128,7 @@ def callback_query(call, currentmsgid=None):
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling"
                                " and difficulty in breathing occurs.", )
 
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
 
 
 
@@ -157,7 +157,7 @@ def callback_query(call, currentmsgid=None):
                                "-Stop medication once diarrhea stops or constipations happens. \n"
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
 
 
     elif call.data == "liquid" and call.message.chat.id != currentmsgid:
@@ -186,7 +186,7 @@ def callback_query(call, currentmsgid=None):
                                "-Stop medication once diarrhea stops or constipations happens.\n"
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
 
 
     elif call.data == "powder" and call.message.chat.id != currentmsgid:
@@ -211,7 +211,7 @@ def callback_query(call, currentmsgid=None):
                                "-Space 2 hours apart with any other medications. \n"
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
-        bot.answer_callback_query(call.id, "hi")
+        bot.answer_callback_query(call.id, "")
 
 
 
