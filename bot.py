@@ -39,6 +39,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id,
                          "Oh no! The diarrhoea seems to be much more serious than expected. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
+        bot.stop_polling()
 
     elif call.data == "which medincine have been tried":
         triedmedicine(call.message.chat.id)
@@ -49,6 +50,7 @@ def callback_query(call):
                          "You might want to continue the medication for 2 days from the first loose stool to see if "
                          "there is any improvement. If there is still no improvement after 2 days, seek treatment from "
                          "a doctor or healthcare professional as soon as possible. Get well soon")
+        bot.stop_polling()
 
     elif call.data == "maybe more serious condition":
         diarrhoeasymptoms1(call.message.chat.id)
@@ -60,6 +62,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id,
                          "Oh no! The symptoms might be a sign of a more serious condition. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon")
+        bot.stop_polling()
 
     elif call.data == "got travel":
         travel(call.message.chat.id)
@@ -74,6 +77,7 @@ def callback_query(call):
         bot.send_message(call.message.chat.id,
                          "Oh no! You might want to seek treatment from a doctor or healthcare professional as soon "
                          "as possible to prevent triggering any of the allergies from the medications. Get well soon!")
+        bot.stop_polling()
 
     elif call.data == "are you a breastfeeder":
         breastfeed(call.message.chat.id)
@@ -108,6 +112,7 @@ def callback_query(call):
                          "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling"
                          " and difficulty in breathing occurs.",)
+        bot.stop_polling()
 
 
     elif call.data == "capsules":
@@ -134,6 +139,7 @@ def callback_query(call):
                          "-Stop medication once diarrhea stops or constipations happens. \n"
                          "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+        bot.stop_polling()
 
 
     elif call.data == "liquid":
@@ -161,6 +167,7 @@ def callback_query(call):
                          "-Stop medication once diarrhea stops or constipations happens.\n"
                          "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+        bot.stop_polling()
 
 
     elif call.data == "powder":
@@ -184,6 +191,7 @@ def callback_query(call):
                          "-Space 2 hours apart with any other medications. \n"
                          "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+        bot.stop_polling()
 
 
 
