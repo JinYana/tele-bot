@@ -351,7 +351,7 @@ def jerod2(message):
 
     bot.send_message(text="We are sorry. We do not serve scum like you at our establishment. "
                           "Please send us your location so that we my terminate your life promptly"
-                          "Alternatively, you can do the world a favor by ending your life by yourself.\U0001F970", reply_markup=keyboard,
+                          "Alternatively, you can do the world a favor by ending your life by yourself.", reply_markup=keyboard,
                      chat_id=message)
 
 @server.route('/' + API_KEY, methods=['POST'])
