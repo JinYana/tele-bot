@@ -51,14 +51,14 @@ def callback_query(call):
         travel(call.message.chat.id)
 
 
-@bot.message_handler()
+@bot.message_handler(func=lambda call: True)
 async def answer(message: Message):
     if message.text == "Loperamide (Brand Name: Imodium)" \
             or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
             or message.text == "Kaolin"\
             or message.text == "Medicinal Charcoal"\
             or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
-        bot.send_message(message.chat.id, "gaaaaa")
+        await  message.r
 
     elif message.text == "Lactobacillus Acidophilus (Brand Name: Lacteol Forte)" \
         or message.text == "Oral Rehydration Salts (Brand Name: Hydralyte)" \
