@@ -54,6 +54,60 @@ def callback_query(call):
     elif call.data == "got travel":
         travel(call.message.chat.id)
 
+    elif call.data == "allergies":
+        allergies(call.message.chat.id)
+
+    elif call.data == "have allergy":
+        bot.send_message(call.message.chat.id,
+                         "Oh no! Patient might want to seek treatment from a doctor or healthcare professional as soon "
+                         "as possible to prevent triggering any of the allergies from the medications. Get well soon!")
+
+    elif call.data == "are you a breastfeeder":
+        breastfeed(call.message.chat.id)
+
+    elif call.data == "pregnant options":
+        pregnantoptions(call.message.chat.id)
+
+    elif call.data == "normal options":
+        normaloptions(call.message.chat.id)
+
+    elif call.data == "tablets":
+        bot.send_message(call.message.chat.id,
+                         "Brand Name: Ultracarbon \n"
+                         "\n"
+                         "Active Ingredient: Medicinal Charcoal \n"
+                         "\n"
+                         "Use For: Diarrhoea, Poisoning, Flatulence \n"
+                         "\n"
+                         "Dosing: 2 to 4 tablets, 3 to 4 times daily. Half the dosing is recommended for children. \n"
+                         "\n"
+                         "How It Works: Absorbs and remove toxins, bacteria, and noxious substances in the intestines. \n"
+                         "\n"
+                         "Common Side Effects: Vomiting, constipation, black stool. \n"
+                         "\n"
+                         "Note: Avoid dairy when taking the medication as it reduces the effectiveness of the medication. \n"
+                         "\n"
+                         "-Take with a full glass of water.-Space 2 hours apart with any other medications. \n"
+                         "\n"
+                         "-Stop medication once diarrhea stops or constipations happens. \n"
+                         "\n"
+                         "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling"
+                         " and difficulty in breathing occurs.")
+
+    elif call.data == "capsules":
+        bot.send_message(call.message.chat.id,
+                         "Brand Name: Norit \n"
+                         "Active Ingredient: Medicinal Charcoal \n"
+                         "Use For: Diarrhoea, Poisoning, Flatulence \n"
+                         "Dosing: 3 to 4 capsules, 3 times daily. \n"
+                         "How It Works: Absorbs and remove toxins, bacteria, and noxious substances in the intestines. \n"
+                         "Common Side Effects: Vomiting, constipation, black stool. \n"
+                         "Note: -Avoid dairy when taking the medication as it reduces the effectiveness of the medication. \n"
+                         "-Take with a full glass of water. \n"
+                         "-Space 2 hours apart with any other medications. \n"
+                         "-Stop medication once diarrhea stops or constipations happens. \n"
+                         "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+
 
 @bot.message_handler(func=lambda call: True)
 def answer(message: Message):
@@ -169,7 +223,47 @@ def travel(message):
     bot.send_message(text="Have you travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
+def allergies(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="have allergy")],
+        [InlineKeyboardButton("No", callback_data="are you a breastfeeder")],
+    ]
+    bot.send_message(text="Are you allergic to any of the medication below?\n"
+                          "\n"
+                          "-Aluminum Silicates \n"
+                          "-Medicinal Charcoal \n"
+                          "-Dioctahedral Smectite (Brand Name: Smecta)", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
 
+def breastfeed(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="pregnant options")],
+        [InlineKeyboardButton("No", callback_data="normal options")],
+    ]
+    bot.send_message(text="Are you current pregnant or breastfeeding?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+def normaloptions(message):
+    keyboard = [
+        [InlineKeyboardButton("Liquid", callback_data="liquid")],
+        [InlineKeyboardButton("Tablets", callback_data="tablets")],
+        [InlineKeyboardButton("Capsules", callback_data="capsules")],
+        [InlineKeyboardButton("Powder Sachets", callback_data="powder")],
+        [InlineKeyboardButton("No Preference", callback_data="tablets")],
+    ]
+    bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def pregnantoptions(message):
+    keyboard = [
+        [InlineKeyboardButton("Liquid", callback_data="liquid")],
+        [InlineKeyboardButton("Tablets", callback_data="tablets")],
+        [InlineKeyboardButton("Capsules", callback_data="capsules")],
+        [InlineKeyboardButton("No Preference", callback_data="tablets")],
+    ]
+    bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
 
 
 @server.route('/' + API_KEY, methods=['POST'])
