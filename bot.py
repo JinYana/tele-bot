@@ -77,30 +77,30 @@ def age(message):
 
 def triedmedicine(message):
     keyboard = [
-        [InlineKeyboardButton("Loperamide (Brand Name: Imodium)", callback_data="Diarrhoea medicine how long"),
-         InlineKeyboardButton("Diphenoxylate / Atropine (Brand Name: Dhamotil)", callback_data="Diarrhoea medicine how long"),
-         InlineKeyboardButton("Kaolin", callback_data="Diarrhoea medicine how long"),
-         InlineKeyboardButton("Medicinal Charcoal", callback_data="Diarrhoea medicine how long"),
-         InlineKeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)", callback_data="Diarrhoea medicine how long"),
-         InlineKeyboardButton("Lactobacillus Acidophilus (Brand Name: Lacteol Forte)", callback_data="got eat raw food"),
-         InlineKeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)", callback_data="got eat raw food"),
-         InlineKeyboardButton("Traditional Chinese Medicine", callback_data="got eat raw food"),
-         InlineKeyboardButton("No, I have not tried any diarrhoea medication yet", callback_data="got eat raw food"),]
+        [InlineKeyboardButton("Loperamide (Brand Name: Imodium)", callback_data="Diarrhoea medicine how long")],
+         [InlineKeyboardButton("Diphenoxylate / Atropine (Brand Name: Dhamotil)", callback_data="Diarrhoea medicine how long")],
+         [InlineKeyboardButton("Kaolin", callback_data="Diarrhoea medicine how long")],
+         [InlineKeyboardButton("Medicinal Charcoal", callback_data="Diarrhoea medicine how long")],
+         [InlineKeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)", callback_data="Diarrhoea medicine how long")],
+         [InlineKeyboardButton("Lactobacillus Acidophilus (Brand Name: Lacteol Forte)", callback_data="got eat raw food")],
+         [InlineKeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)", callback_data="got eat raw food")],
+         [InlineKeyboardButton("Traditional Chinese Medicine", callback_data="got eat raw food")],
+         [InlineKeyboardButton("No, I have not tried any diarrhoea medication yet", callback_data="got eat raw food")],
     ]
     bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 def howlong(message):
     keyboard = [
-        [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea"),
-                InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried"),]
+        [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea")],
+                [InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried")],
     ]
     bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
 def triedmedicineduration(message):
     keyboard = [
-        [InlineKeyboardButton("Less than 2 days", callback_data="waitandsee"),
-        InlineKeyboardButton("More than 2 days", callback_data="serious diarrhoea"), ]
+        [InlineKeyboardButton("Less than 2 days", callback_data="waitandsee")],
+        [InlineKeyboardButton("More than 2 days", callback_data="serious diarrhoea")],
     ]
     bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
@@ -108,16 +108,16 @@ def triedmedicineduration(message):
 def rawfood(message):
 
     keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="more serious condition"),
-        InlineKeyboardButton("No", callback_data="got travel"), ]
+        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("No", callback_data="got travel")],
     ]
     bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 def travel(message):
 
     keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="more serious condition"),
-        InlineKeyboardButton("No", callback_data="got travel"), ]
+        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("No", callback_data="got travel")],
     ]
     bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
