@@ -13,7 +13,7 @@ def start(message):
     keyboard = [
         [InlineKeyboardButton("I need help with diarrhoea!", callback_data="rec"),]
     ]
-    bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
+    bot.send_message(text="Hi what can we do for you?" + getWebhookInfo, reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -405,20 +405,22 @@ def pregnantoptions(message):
 #                           "Have a nice day!!! \U0001F970", reply_markup=keyboard,
 #                      chat_id=message)
 
+
+
 @server.route('/' + API_KEY, methods=['POST'])
 def getMessage():
     json_string = request.get_data().decode('utf-8')
     update = telebot.types.Update.de_json(json_string)
     bot.process_new_updates([update])
-    return Response(status=200)
+    return "!", 200
 
 
 @server.route("/")
 def webhook():
     bot.remove_webhook()
+    bot.webh
     bot.set_webhook(url='https://pharmacy-botty.herokuapp.com/' + API_KEY)
-    return Response(status=200)
-
+    return "!", 200
 
 if __name__ == "__main__":
     server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
