@@ -14,7 +14,9 @@ def start(message):
     keyboard = [
         [InlineKeyboardButton("I need help with diarrhoea!", callback_data="rec"),]
     ]
-    bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
+
+    bot.send_photo("https://imgur.com/DvjpvEN", caption="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
+
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -72,6 +74,7 @@ def callback_query(call):
         normaloptions(call.message.chat.id)
 
     elif call.data == "tablets":
+
         bot.send_message(call.message.chat.id,
                          "Brand Name: Ultracarbon \n"
                          "\n"
@@ -85,7 +88,8 @@ def callback_query(call):
                          "\n"
                          "Common Side Effects: Vomiting, constipation, black stool. \n"
                          "\n"
-                         "Note: Avoid dairy when taking the medication as it reduces the effectiveness of the medication. \n"
+                         "Note: \n"
+                         "-Avoid dairy when taking the medication as it reduces the effectiveness of the medication. \n"
                          "\n"
                          "-Take with a full glass of water.-Space 2 hours apart with any other medications. \n"
                          "\n"
@@ -97,15 +101,74 @@ def callback_query(call):
     elif call.data == "capsules":
         bot.send_message(call.message.chat.id,
                          "Brand Name: Norit \n"
+                         "\n"
                          "Active Ingredient: Medicinal Charcoal \n"
+                         "\n"
                          "Use For: Diarrhoea, Poisoning, Flatulence \n"
+                         "\n"
                          "Dosing: 3 to 4 capsules, 3 times daily. \n"
+                         "\n"
                          "How It Works: Absorbs and remove toxins, bacteria, and noxious substances in the intestines. \n"
+                         "\n"
                          "Common Side Effects: Vomiting, constipation, black stool. \n"
-                         "Note: -Avoid dairy when taking the medication as it reduces the effectiveness of the medication. \n"
+                         "\n"
+                         "Note: \n"
+                         "-Avoid dairy when taking the medication as it reduces the effectiveness of the medication. \n"
+                         "\n"
                          "-Take with a full glass of water. \n"
+                         "\n"
                          "-Space 2 hours apart with any other medications. \n"
+                         "\n"
                          "-Stop medication once diarrhea stops or constipations happens. \n"
+                         "\n"
+                         "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+
+    elif call.data == "liquid":
+        bot.send_message(call.message.chat.id,
+                         "Brand Name: Kaomix \n"
+                         "\n"
+                         "Active Ingredient: Aluminum Silicates \n"
+                         "\n"
+                         "Use For: Diarrhoea \n"
+                         "\n"
+                         "Dosing: Children 3 to 5 Y.O. (3 to 5ml), Children 6 to 12 Y.O. (10 to 20ml). \n"
+                         "\n"
+                         "Adults and Children over 12 Y.O. (20 to 40ml). \n"
+                         "\n"
+                         "How It Works: Absorbs and remove toxins, bacteria, and noxious substances in the intestines. \n"
+                         "\n"
+                         "Common Side Effects: Vomiting, Constipation. \n"
+                         "\n"
+                         "Note: \n"
+                         "\n"
+                         "-Shake well before taking suspension. \n"
+                         "\n"
+                         "-Space 2 hours apart with any other medications. \n"
+                         "\n"
+                         "-Stop medication once diarrhea stops or constipations happens.\n"
+                         "\n"
+                         "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+
+    elif call.data == "powder":
+        bot.send_message(call.message.chat.id,
+                         "Brand Name: Smecta \n"
+                         "\n"
+                         "Active Ingredient: Dioctahedral Smectite \n"
+                         "\n"
+                         "Use For: Diarrhoea \n"
+                         "\n"
+                         "Dosing: For children 2 to 3 sachets daily, mix with a semi-liquid food if necessary. For adults 3 sachets per day for 7 days, dilute with 50ml of water. \n"
+                         "How It Works: Absorbs and remove toxins, bacteria, and noxious substances in the intestines. \n"
+                         "\n"
+                         "Common Side Effects: Constipation \n"
+                         "\n"
+                         "Note: \n"
+                         "-Not suitable for patients with fructose intolerance, glucose, and galactose malabsorption syndrome, sucrase/somaltase deficiency. \n"
+                         "\n"
+                         "-Not recommended during pregnancy or breastfeeding. \n"
+                         "\n"
+                         "-Space 2 hours apart with any other medications. \n"
+                         "\n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
 
 
@@ -217,8 +280,8 @@ def diarrhoeasymptoms(message):
 def travel(message):
 
     keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="allergies")],
-        [InlineKeyboardButton("No", callback_data="more serious condition")],
+        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("No", callback_data="allergies")],
     ]
     bot.send_message(text="Have you travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
