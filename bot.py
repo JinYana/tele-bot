@@ -76,7 +76,7 @@ def age(message):
 
 
 def triedmedicine(message):
-    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)", callback_data="Diarrhoea medicine how long")
+    button1 = KeyboardButton("Loperamide (Brand Name: Imodium)")
     # keyboard = [
     #     KeyboardButton("Loperamide (Brand Name: Imodium)", callback_data="Diarrhoea medicine how long"),
     #
@@ -94,7 +94,7 @@ def triedmedicine(message):
     #      KeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)", callback_data="got eat raw food"),
     #
     #      KeyboardButton("Traditional Chinese Medicine", callback_data="got eat raw food"),
-    # 
+    #
     #      KeyboardButton("No, I have not tried any \n"
     #                            "diarrhoea medication yet", callback_data="got eat raw food"),
     # ]
