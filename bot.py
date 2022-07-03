@@ -269,7 +269,7 @@ def rawfood(message):
 
     keyboard = [
         [InlineKeyboardButton("Yes", callback_data="maybe more serious condition")],
-        [InlineKeyboardButton("No", callback_data="got travel2")],
+        [InlineKeyboardButton("No", callback_data="got travel")],
     ]
     bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
                      chat_id=message)
