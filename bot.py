@@ -262,9 +262,9 @@ def triedmedicine(message):
 
         KeyboardButton("Diphenoxylate / Atropine (Brand Name: Dhamotil)"),
 
-        KeyboardButton("Kaolin"),
+        KeyboardButton("Kaolin (Brand Name: Kaomix)"),
 
-        KeyboardButton("Medicinal Charcoal"),
+        KeyboardButton("Medicinal Charcoal (Brand Name: Ultracarbon/Norit)"),
 
         KeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)"),
 
