@@ -228,8 +228,8 @@ def callback_query(call, currentmsgid=None):
 def answer(message: Message):
     if message.text == "Loperamide (Brand Name: Imodium)" \
             or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
-            or message.text == "Kaolin" \
-            or message.text == "Medicinal Charcoal" \
+            or message.text == "Kaolin (Brand Name: Kaomix)" \
+            or message.text == "Medicinal Charcoal (Brand Name: Ultracarbon/Norit)" \
             or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
         triedmedicineduration(message.chat.id)
 
