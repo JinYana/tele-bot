@@ -252,17 +252,6 @@ def answer(message: Message):
             or message.text == "Traditional Chinese Medicine" \
             or message.text == "No, I have not tried any diarrhoea medication yet":
         rawfood(message.chat.id)
-    elif message.text == "2":
-        cid = message.chat.id
-        mid = message.message_id
-        message_text = message.text
-        user_id = message.from_user.id
-        user_name = message.from_user.first_name
-
-        if isinstance(int(message_text), int):
-            num = int(message_text) + 2
-            bot.send_message(cid,
-                             "Your number is now " + str(num))
 
 
 # Diarrhoea bot
