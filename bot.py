@@ -9,7 +9,7 @@ server = Flask(__name__)
 API_KEY = "5324891918:AAGKD1WX7zyIlX3aLKr-GAICBjenjsH-1Mg"
 bot = telebot.TeleBot(API_KEY)
 
-global currentmsgid
+
 
 currentmsgid = ""
 
@@ -17,7 +17,7 @@ currentmsgid = ""
 def start(message):
     keyboard = [
         [InlineKeyboardButton("I need help with diarrhoea!", callback_data="rec"), ],
-        [InlineKeyboardButton("test!", callback_data="test"), ]
+        [InlineKeyboardButton("test!", callback_data="test3"), ]
     ]
     bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message.chat.id)
@@ -30,11 +30,11 @@ def start(message):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call, currentmsgid=None):
 
-    if call.data == "rec" and call.message.chat.id != currentmsgid:
+    if call.data == "rec":
         age(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
-    if call.data == "test" and call.message.chat.id != currentmsgid:
+    if call.data == "test3":
         test(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
@@ -444,7 +444,7 @@ def pregnantoptions(message):
                      chat_id=message)
 
 def test(message):
-    bot.send_message(text="Give me a number, I will add 2 to ur number", reply_markup=mark,
+    bot.send_message(text="Give me a number, I will add 2 to ur number",
                      chat_id=message)
 
 
