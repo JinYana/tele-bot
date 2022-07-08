@@ -16,10 +16,15 @@ currentmsgid = ""
 @bot.message_handler(commands=['start'])
 def start(message):
     keyboard = [
-        [InlineKeyboardButton("I need help with diarrhoea!", callback_data="rec"), ]
+        [InlineKeyboardButton("I need help with diarrhoea!", callback_data="rec"), ],
+        [InlineKeyboardButton("test!", callback_data="test"), ]
     ]
     bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message.chat.id)
+
+
+
+
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -27,6 +32,10 @@ def callback_query(call, currentmsgid=None):
 
     if call.data == "rec" and call.message.chat.id != currentmsgid:
         age(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
+
+    if call.data == "test" and call.message.chat.id != currentmsgid:
+        test(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
 
@@ -226,6 +235,11 @@ def callback_query(call, currentmsgid=None):
 
 @bot.message_handler(func=lambda call: True)
 def answer(message: Message):
+    cid = message.chat.id
+    mid = message.message_id
+    message_text = message.text
+    user_id = message.from_user.id
+    user_name = message.from_user.first_name
     if message.text == "Loperamide (Brand Name: Imodium)" \
             or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
             or message.text == "Kaolin" \
@@ -238,6 +252,12 @@ def answer(message: Message):
             or message.text == "Traditional Chinese Medicine" \
             or message.text == "No, I have not tried any diarrhoea medication yet":
         rawfood(message.chat.id)
+    else:
+        num = int(message_text) + 2
+
+        bot.send_message(cid,
+                         "Your number is now" + num)
+
 
 
 # Diarrhoea bot
@@ -421,6 +441,10 @@ def pregnantoptions(message):
         [InlineKeyboardButton("No Preference", callback_data="tablets")],
     ]
     bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+def test(message):
+    bot.send_message(text="Give me a number, I will add 2 to ur number", reply_markup=mark,
                      chat_id=message)
 
 
