@@ -9,8 +9,9 @@ server = Flask(__name__)
 API_KEY = "5324891918:AAGKD1WX7zyIlX3aLKr-GAICBjenjsH-1Mg"
 bot = telebot.TeleBot(API_KEY)
 
-currentmsgid = ""
 
+
+currentmsgid = ""
 
 @bot.message_handler(commands=['start'])
 def start(message):
@@ -22,8 +23,13 @@ def start(message):
                      chat_id=message.chat.id)
 
 
+
+
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call, currentmsgid=None):
+
     if call.data == "rec":
         age(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
@@ -226,6 +232,7 @@ def callback_query(call, currentmsgid=None):
         bot.answer_callback_query(call.id, "")
 
 
+
 @bot.message_handler(func=lambda call: True)
 def answer(message: Message):
     cid = message.chat.id
@@ -245,14 +252,17 @@ def answer(message: Message):
             or message.text == "Traditional Chinese Medicine" \
             or message.text == "No, I have not tried any diarrhoea medication yet":
         rawfood(message.chat.id)
+    elif message.text == "2":
+        cid = message.chat.id
+        mid = message.message_id
+        message_text = message.text
+        user_id = message.from_user.id
+        user_name = message.from_user.first_name
 
-
-
-
-def tester(message, num):
-    bomb = int(num) + 2
-    bot.send_message(chat_id=message,
-                     text="Your number is now " + str(bomb))
+        if isinstance(int(message_text), int):
+            num = int(message_text) + 2
+            bot.send_message(cid,
+                             "Your number is now " + str(num))
 
 
 # Diarrhoea bot
@@ -391,10 +401,7 @@ def travel2(message):
     ]
     bot.send_message(text="Has the patient travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
-def test(message):
-    num = message.text
-    botsent = bot.send_message(text="Give me a number, I will add 2 to ur number",)
-    bot.register_next_step_handler(botsent, tester, num)  # Next message will call the name_handler function
+
 
 def allergies(message):
     keyboard = [
@@ -441,8 +448,10 @@ def pregnantoptions(message):
     bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
 
-
-
+def test(message):
+    bot.send_message(text="Give me a number, I will add 2 to ur number",
+                     chat_id=message)
+    tester()
 
 
 # def jerod(message):
