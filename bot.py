@@ -262,7 +262,7 @@ def answer(message: Message):
         if isinstance(int(message_text), int):
             num = int(message_text) + 2
             bot.send_message(cid,
-                             "Your number is now" + str(num))
+                             "Your number is now " + str(num))
 
 
 # Diarrhoea bot
@@ -449,9 +449,16 @@ def pregnantoptions(message):
                      chat_id=message)
 
 def test(message):
-    bot.send_message(text="Give me a number, I will add 2 to ur number",
+    num = message.text
+    botsent = bot.send_message(text="Give me a number, I will add 2 to ur number",
                      chat_id=message)
-    tester()
+    bot.register_next_step_handler(botsent, tester, num)  # Next message will call the name_handler function
+
+def tester(message, num):
+    bomb = int(num) + 2
+    bot.send_message(chat_id=message,
+                     text="Your number is now " + str(bomb))
+
 
 
 # def jerod(message):
