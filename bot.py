@@ -48,7 +48,7 @@ def triedmedicine(message):
     for i in keyboard:
         mark.add(i)
     msg = bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
-                           chat_id=message)
+                           chat_id=message.chat.id)
 
     bot.register_next_step_handler(msg, diamsghandler())
 
@@ -59,13 +59,13 @@ def diamsghandler(message):
             or message.text == "Kaolin (Brand Name: Kaomix)" \
             or message.text == "Medicinal Charcoal (Brand Name: Ultracarbon/Norit)" \
             or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
-        triedmedicineduration(message)
+        triedmedicineduration(message.chat.id)
 
     elif message.text == "Lactobacillus Acidophilus (Brand Name: Lacteol Forte)" \
             or message.text == "Oral Rehydration Salts (Brand Name: Hydralyte)" \
             or message.text == "Traditional Chinese Medicine" \
             or message.text == "No, I have not tried any diarrhoea medication yet":
-        rawfood(message)
+        rawfood(message.chat.id)
 
 
 def fevermsghandler(message):
@@ -73,11 +73,11 @@ def fevermsghandler(message):
             or message.text == "Both Paracetamol and Ibuprofen" \
             or message.text == "Ibuprofen": \
  \
-            feverimproved(message, False)
+            feverimproved(message.chat.id, False)
 
     elif message.text == "Paracetamol": \
  \
-            feverimproved(message, True)
+            feverimproved(message.chat.id, True)
 
     elif message.text == "Traditional Chinese Medicine" \
             or message.text == "No, I have not tried any fever medication yet": \
@@ -99,7 +99,7 @@ def feverallergymsghandler(message, paracetamol):
                                   "-Avoid caffeine of any form"
                                   "-Take plenty of rest"
                                   "-Place cool tower to the skin near the neck and to the armpits",
-                             chat_id=message)
+                             chat_id=message.chat.id)
 
     elif (message.text == "Ibuprofen" and paracetamol and person[0] == "c") \
             or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
@@ -116,7 +116,9 @@ def feverallergymsghandler(message, paracetamol):
                               "-Make sure the child’s environment is not too hot and is comfortable"
                               "-Dress child in light clothing"
                               "-Sponge with room temperature water to the skin near the neck and to the armpits",
-                         chat_id=message)
+                         chat_id=message.chat.id)
+
+
 
 
 def triedmedicineduration(message):
