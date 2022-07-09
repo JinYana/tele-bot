@@ -15,15 +15,15 @@ bot = telebot.TeleBot(API_KEY)
 
 
 @bot.message_handler(commands=['start'])
-def start(message):
-    keyboard = [
-        [InlineKeyboardButton("I need help with diarrhoea!", callback_data="dia"), ],
-        [InlineKeyboardButton("I need help with fever!", callback_data="fever"), ]
-    ]
-    bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message.chat.id)
+# def start(message):
+#     keyboard = [
+#         [InlineKeyboardButton("I need help with diarrhoea!", callback_data="dia"), ],
+#         [InlineKeyboardButton("I need help with fever!", callback_data="fever"), ]
+#     ]
+#     bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard),
+#                      chat_id=message.chat.id)
 
-def triedmedicine(message):
+def start(message):
     keyboard = [
         KeyboardButton("Loperamide (Brand Name: Imodium)"),
 
@@ -49,7 +49,7 @@ def triedmedicine(message):
     msg = bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
                      chat_id=message.chat.id)
 
-    bot.register_next_step_handler(msg, test9())
+    bot.register_next_step_handler(msg, test9)
 
 def test9(message):
 
