@@ -66,7 +66,7 @@ def triedmedicineduration(message):
         [InlineKeyboardButton("More than 2 days", callback_data="serious diarrhoea")],
     ]
     bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
-                     chat_id=message)
+                     chat_id=message.chat.id)
     bot.send_message(
         text="How long has the patient been taking the medication for with no improvement? (Counting from the first loose stool)",
         reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
