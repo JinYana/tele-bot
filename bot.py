@@ -23,13 +23,61 @@ def start(message):
     bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message.chat.id)
 
+def triedmedicine(message):
+    keyboard = [
+        KeyboardButton("Loperamide (Brand Name: Imodium)"),
+
+        KeyboardButton("Diphenoxylate / Atropine (Brand Name: Dhamotil)"),
+
+        KeyboardButton("Kaolin (Brand Name: Kaomix)"),
+
+        KeyboardButton("Medicinal Charcoal (Brand Name: Ultracarbon/Norit)"),
+
+        KeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)"),
+
+        KeyboardButton("Lactobacillus Acidophilus (Brand Name: Lacteol Forte)"),
+
+        KeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)"),
+
+        KeyboardButton("Traditional Chinese Medicine"),
+
+        KeyboardButton("No, I have not tried any diarrhoea medication yet")
+    ]
+    mark = ReplyKeyboardMarkup(one_time_keyboard=True)
+    for i in keyboard:
+        mark.add(i)
+    msg = bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
+                     chat_id=message)
+
+    bot.register_next_step_handler(msg, test9())
+
+def test9(message):
+
+    if message.text == "Loperamide (Brand Name: Imodium)" \
+            or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
+            or message.text == "Kaolin (Brand Name: Kaomix)" \
+            or message.text == "Medicinal Charcoal (Brand Name: Ultracarbon/Norit)" \
+            or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
+        triedmedicineduration(message.chat.id)
+
+def triedmedicineduration(message):
+    keyboard = [
+        [InlineKeyboardButton("Less than 2 days", callback_data="waitandsee")],
+        [InlineKeyboardButton("More than 2 days", callback_data="serious diarrhoea")],
+    ]
+    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                     chat_id=message)
+    bot.send_message(
+        text="How long has the patient been taking the medication for with no improvement? (Counting from the first loose stool)",
+        reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
 
 
 
 
 
 @bot.callback_query_handler(func=lambda call: True)
-def callback_query(call, currentmsgid=None):
+def callback_query(call):
 
     if call.data == "dia":
         age(call.message.chat.id, "diarrhoea")
@@ -324,14 +372,7 @@ def callback_query(call, currentmsgid=None):
 
 
 
-def test9(message):
 
-    if message.text == "Loperamide (Brand Name: Imodium)" \
-            or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
-            or message.text == "Kaolin (Brand Name: Kaomix)" \
-            or message.text == "Medicinal Charcoal (Brand Name: Ultracarbon/Norit)" \
-            or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
-        triedmedicineduration(message.chat.id)
 
 
 def age(message, condition):
@@ -361,32 +402,8 @@ def age(message, condition):
     bot.send_message(text="How old is the patient?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
-def triedmedicine(message):
-    keyboard = [
-        KeyboardButton("Loperamide (Brand Name: Imodium)"),
 
-        KeyboardButton("Diphenoxylate / Atropine (Brand Name: Dhamotil)"),
 
-        KeyboardButton("Kaolin (Brand Name: Kaomix)"),
-
-        KeyboardButton("Medicinal Charcoal (Brand Name: Ultracarbon/Norit)"),
-
-        KeyboardButton("Dioctahedral Smectite (Brand Name: Smecta)"),
-
-        KeyboardButton("Lactobacillus Acidophilus (Brand Name: Lacteol Forte)"),
-
-        KeyboardButton("Oral Rehydration Salts (Brand Name: Hydralyte)"),
-
-        KeyboardButton("Traditional Chinese Medicine"),
-
-        KeyboardButton("No, I have not tried any diarrhoea medication yet")
-    ]
-    mark = ReplyKeyboardMarkup(one_time_keyboard=True)
-    for i in keyboard:
-        mark.add(i)
-    msg = bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
-                     chat_id=message)
-    test9(msg)
 
 
 def howlong(message, condition, age):
@@ -413,16 +430,7 @@ def howlong(message, condition, age):
                      chat_id=message)
 
 
-def triedmedicineduration(message):
-    keyboard = [
-        [InlineKeyboardButton("Less than 2 days", callback_data="waitandsee")],
-        [InlineKeyboardButton("More than 2 days", callback_data="serious diarrhoea")],
-    ]
-    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
-                     chat_id=message)
-    bot.send_message(
-        text="How long has the patient been taking the medication for with no improvement? (Counting from the first loose stool)",
-        reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
 
 
 def rawfood(message):
