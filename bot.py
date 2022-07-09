@@ -48,7 +48,7 @@ def triedmedicine(message):
     for i in keyboard:
         mark.add(i)
     msg = bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
-                           chat_id=message.chat.id)
+                           chat_id=message)
 
     bot.register_next_step_handler(msg, diamsghandler())
 
