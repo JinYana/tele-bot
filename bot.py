@@ -47,7 +47,7 @@ def triedmedicine(message):
     for i in keyboard:
         mark.add(i)
     msg = bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
-                     chat_id=message)
+                     chat_id=message.chat.id)
 
     bot.register_next_step_handler(msg, test9())
 
@@ -69,7 +69,7 @@ def triedmedicineduration(message):
                      chat_id=message)
     bot.send_message(
         text="How long has the patient been taking the medication for with no improvement? (Counting from the first loose stool)",
-        reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+        reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message.chat.id)
 
 
 
