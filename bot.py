@@ -51,7 +51,7 @@ def callback_query(call, currentmsgid=None):
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "how long diarrhoea":
-        howlong(call.message.chat.id, "diarrhoea")
+        howlong(call.message.chat.id, "diarrhoea", " ")
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "serious diarrhoea":
