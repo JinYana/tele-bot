@@ -48,7 +48,7 @@ def triedmedicine(message):
     for i in keyboard:
         mark.add(i)
     msg = bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
-                           chat_id=message)
+                           chat_id=message.chat.id)
 
     bot.register_next_step_handler(msg, diamsghandler)
 
@@ -59,13 +59,13 @@ def diamsghandler(message):
             or message.text == "Kaolin (Brand Name: Kaomix)" \
             or message.text == "Medicinal Charcoal (Brand Name: Ultracarbon/Norit)" \
             or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
-        triedmedicineduration(message)
+        triedmedicineduration(message.chat.id)
 
     elif message.text == "Lactobacillus Acidophilus (Brand Name: Lacteol Forte)" \
             or message.text == "Oral Rehydration Salts (Brand Name: Hydralyte)" \
             or message.text == "Traditional Chinese Medicine" \
             or message.text == "No, I have not tried any diarrhoea medication yet":
-        rawfood(message)
+        rawfood(message.chat.id)
 
 
 def fevermsghandler(message):
@@ -459,7 +459,7 @@ def callback_query(call):
 
 
     elif call.data == "which medincine have been tried":
-        triedmedicine(call.message.chat.id)
+        triedmedicine(call.message)
 
 
     elif call.data == "waitandsee":
