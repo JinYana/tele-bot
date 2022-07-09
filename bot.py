@@ -9,21 +9,22 @@ server = Flask(__name__)
 API_KEY = "5324891918:AAGKD1WX7zyIlX3aLKr-GAICBjenjsH-1Mg"
 bot = telebot.TeleBot(API_KEY)
 
-
-
-
+person = []
 
 
 @bot.message_handler(commands=['start'])
-# def start(message):
-#     keyboard = [
-#         [InlineKeyboardButton("I need help with diarrhoea!", callback_data="dia"), ],
-#         [InlineKeyboardButton("I need help with fever!", callback_data="fever"), ]
-#     ]
-#     bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard),
-#                      chat_id=message.chat.id)
-
 def start(message):
+    person.clear()
+    keyboard = [
+        [InlineKeyboardButton("I need help with diarrhoea!", callback_data="dia"), ],
+        [InlineKeyboardButton("I need help with fever!", callback_data="fever"), ]
+    ]
+    bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message.chat.id)
+    person.clear()
+
+
+def triedmedicine(message):
     keyboard = [
         KeyboardButton("Loperamide (Brand Name: Imodium)"),
 
@@ -47,18 +48,76 @@ def start(message):
     for i in keyboard:
         mark.add(i)
     msg = bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
-                     chat_id=message.chat.id)
+                           chat_id=message.chat.id)
 
-    bot.register_next_step_handler(msg, test9)
+    bot.register_next_step_handler(msg, diamsghandler())
 
-def test9(message):
 
+def diamsghandler(message):
     if message.text == "Loperamide (Brand Name: Imodium)" \
             or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
             or message.text == "Kaolin (Brand Name: Kaomix)" \
             or message.text == "Medicinal Charcoal (Brand Name: Ultracarbon/Norit)" \
             or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
         triedmedicineduration(message.chat.id)
+
+    elif message.text == "Lactobacillus Acidophilus (Brand Name: Lacteol Forte)" \
+            or message.text == "Oral Rehydration Salts (Brand Name: Hydralyte)" \
+            or message.text == "Traditional Chinese Medicine" \
+            or message.text == "No, I have not tried any diarrhoea medication yet":
+        rawfood(message.chat.id)
+
+
+def fevermsghandler(message):
+    if message.text == "Diclofenac" \
+            or message.text == "Both Paracetamol and Ibuprofen" \
+            or message.text == "Ibuprofen": \
+ \
+            feverimproved(message.chat.id, False)
+
+    elif message.text == "Paracetamol": \
+ \
+            feverimproved(message.chat.id, True)
+
+    elif message.text == "Traditional Chinese Medicine" \
+            or message.text == "No, I have not tried any fever medication yet": \
+            feverallergy(message.chat.id, False)
+
+
+def feverallergymsghandler(message, paracetamol):
+    if (message.text == "Ibuprofen" and paracetamol and person[0] == "a") \
+            or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
+        0] == "a") \
+            or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "a"): \
+            bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
+                                  "Be kindly advised to seek treatment from a doctor or a healthcare professional "
+                                  "as soon as possible. Get well soon! \n"
+                                  "\n"
+                                  "In the meantime, what the patient can do are: \n"
+                                  "\n"
+                                  "-Drink plenty of fluids"
+                                  "-Avoid caffeine of any form"
+                                  "-Take plenty of rest"
+                                  "-Place cool tower to the skin near the neck and to the armpits",
+                             chat_id=message.chat.id)
+
+    elif (message.text == "Ibuprofen" and paracetamol and person[0] == "c") \
+            or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
+        0] == "c") \
+            or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "c"):
+        bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
+                              "Be kindly advised to seek treatment from a doctor or a healthcare professional "
+                              "as soon as possible. Get well soon! \n"
+                              "\n"
+                              "In the meantime, what the patient can do are: \n"
+                              "\n"
+                              "-Drink plenty of fluids"
+                              "-Take plenty of rest"
+                              "-Make sure the child’s environment is not too hot and is comfortable"
+                              "-Dress child in light clothing"
+                              "-Sponge with room temperature water to the skin near the neck and to the armpits",
+                         chat_id=message.chat.id)
+
 
 def triedmedicineduration(message):
     keyboard = [
@@ -72,19 +131,306 @@ def triedmedicineduration(message):
         reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
+def ages(message, condition):
+    if condition == "diarrhoea":
+        keyboard = [
+
+            [InlineKeyboardButton("Infant (0-1 Y.O.)", callback_data="unsuitable age")],
+
+            [InlineKeyboardButton("Elderly (65 Y.O. and above)", callback_data="unsuitable age")],
+
+            [InlineKeyboardButton("Children (2-17 Y.O.)", callback_data="how long diarrhoea")],
+
+            [InlineKeyboardButton("Adult (18-64 Y.O.)", callback_data="how long diarrhoea")],
+
+        ]
+    else:
+        keyboard = [
+
+            [InlineKeyboardButton("Infant (0-1 Y.O.)", callback_data="fever unsuitable age")],
+
+            [InlineKeyboardButton("Children (6 Mnth-12 Y.O.)", callback_data="how long fever child")],
+
+            [InlineKeyboardButton("Adult (13 Y.O. and above)", callback_data="how long fever adult")],
+
+        ]
+
+    bot.send_message(text="How old is the patient?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
+def howlong(message, condition, age):
+    if condition == "diarrhoea":
+        keyboard = [
+            [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea")],
+            [InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried")],
+        ]
+    else:
+        if age == "c":
+            keyboard = [
+                [InlineKeyboardButton("More than 3 days", callback_data="serious fever")],
+                [InlineKeyboardButton("Less than 3 days", callback_data="fever symptoms child")],
+            ]
+        else:
+            keyboard = [
+                [InlineKeyboardButton("More than 3 days", callback_data="serious fever")],
+                [InlineKeyboardButton("Less than 3 days", callback_data="fever symptoms adult")],
+            ]
+
+    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def rawfood(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="maybe more serious condition")],
+        [InlineKeyboardButton("No", callback_data="got travel")],
+    ]
+    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                     chat_id=message)
+    bot.send_message(text="Has the patient eaten anything raw or undercooked recently?",
+                     reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
+
+def diarrhoeasymptoms1(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("No", callback_data="got travel2")],
+    ]
+    bot.send_message(text="Have the patient displayed any of the symptoms below? \n"
+                          "\n"
+                          "For adults: \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Fever above 39 degrees Celsius \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin \n"
+                          "\n"
+                          "For children: \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Sunken stomach, eyes or cheeks \n"
+                          "-Sleepy or unresponsive-Cries with no tears or dry mouth \n"
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin",
+                     reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
+
+def diarrhoeasymptoms2(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("No", callback_data="allergies")],
+    ]
+    bot.send_message(text="Have the patient displayed any of the symptoms below? \n"
+                          "\n"
+                          "For adults: \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Fever above 39 degrees Celsius \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin \n"
+                          "\n"
+                          "For children: \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Sunken stomach, eyes or cheeks \n"
+                          "-Sleepy or unresponsive-Cries with no tears or dry mouth \n"
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin",
+                     reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
+
+def travel(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("No", callback_data="diarrhoeasymptoms2")],
+    ]
+    bot.send_message(text="Has the patient travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def travel2(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
+        [InlineKeyboardButton("No", callback_data="allergies")],
+    ]
+    bot.send_message(text="Has the patient travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def allergies(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="have allergy")],
+        [InlineKeyboardButton("No", callback_data="are you a breastfeeder")],
+    ]
+    bot.send_message(text="Is the patient allergic to any of the medication below?\n"
+                          "\n"
+                          "-Aluminum Silicates \n"
+                          "-Medicinal Charcoal \n"
+                          "-Dioctahedral Smectite (Brand Name: Smecta)", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def breastfeed(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="pregnant options")],
+        [InlineKeyboardButton("No", callback_data="normal options")],
+    ]
+    bot.send_message(text="Is pregnancy or breastfeeding an issue to the patient?",
+                     reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def normaloptions(message):
+    keyboard = [
+        [InlineKeyboardButton("Liquid", callback_data="liquid")],
+        [InlineKeyboardButton("Tablets", callback_data="tablets")],
+        [InlineKeyboardButton("Capsules", callback_data="capsules")],
+        [InlineKeyboardButton("Powder Sachets", callback_data="powder")],
+        [InlineKeyboardButton("No Preference", callback_data="tablets")],
+    ]
+    bot.send_message(text="What kind of medicine will the patient prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def pregnantoptions(message):
+    keyboard = [
+        [InlineKeyboardButton("Liquid", callback_data="liquid")],
+        [InlineKeyboardButton("Tablets", callback_data="tablets")],
+        [InlineKeyboardButton("Capsules", callback_data="capsules")],
+        [InlineKeyboardButton("No Preference", callback_data="tablets")],
+    ]
+    bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def feversymptoms(message, age):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="yes fever symptoms")],
+        [InlineKeyboardButton("No", callback_data="no fever symptoms")],
+    ]
+    if age == "c":
+
+        bot.send_message(text="Has the patient developed any of the symptoms below? \n"
+                              "\n"
+                              "-Temperature is higher than 40°C \n"
+                              "\n"
+                              "-Red or purple rashes developing \n"
+                              "\n"
+                              "-Headache, stiff neck or is discomfort under bright light \n"
+                              "\n"
+                              "-Difficulty in breathing, faints or not responding \n"
+                              "\n"
+                              "-Has a fit or lacks energy \n"
+                              "\n"
+                              "-Look more unwell \n"
+                              "\n"
+                              "-Display symptoms of dehydration such as sunken eyes, dry diapers, and poor elasticity",
+                         reply_markup=InlineKeyboardMarkup(keyboard),
+                         chat_id=message)
+    else:
+
+        bot.send_message(text="Has the patient displayed any of the symptoms below? \n"
+                              "\n"
+                              "-Temperature is or higher than 39.4°C-Symptoms worsen \n"
+                              "\n"
+                              "-Feeling confused or stiff neck-Skin rashes developing \n"
+                              "\n"
+                              "-Very bad diarrhoea, headache or vomiting occurs \n"
+                              "\n"
+                              "-Difficulty in breathing or chest pain \n"
+                              "\n"
+                              "-If patient have cancer, heart diseases, diabetes, AIDS or are taking medicines "
+                              "that might weaken the immune system",
+                         reply_markup=InlineKeyboardMarkup(keyboard),
+                         chat_id=message)
+
+
+def triedfevermedicine(message):
+    keyboard = [
+        KeyboardButton("Diclofenac"),
+
+        KeyboardButton("Both Paracetamol and Ibuprofen"),
+
+        KeyboardButton("Ibuprofen"),
+
+        KeyboardButton("Paracetamol"),
+
+        KeyboardButton("Traditional Chinese Medicine"),
+
+        KeyboardButton("No, I have not tried any fever medication yet"),
+
+    ]
+    mark = ReplyKeyboardMarkup(one_time_keyboard=True)
+    for i in keyboard:
+        mark.add(i)
+    msg = bot.send_message(text="Has the patient tried any of the fever medication below?", reply_markup=mark,
+                           chat_id=message)
+
+    bot.register_next_step_handler(msg, fevermsghandler())
+
+
+def feverimproved(message, paracetamol):
+    if paracetamol:
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="yes fever improve")],
+            [InlineKeyboardButton("No", callback_data="no paracetamol fever never improve")],
+        ]
+
+    else:
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="yes fever improve")],
+            [InlineKeyboardButton("No", callback_data="no fever never improve")],
+        ]
+
+    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                     chat_id=message)
+
+    bot.send_message(text="Has the medication improved the patient’s fever?",
+                     reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def feverallergy(message, paracetamol):
+    if paracetamol:
+        keyboard = [
+            KeyboardButton("Ibuprofen"),
+
+            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
+
+            KeyboardButton("No allergies to the medications listed"),
+
+        ]
+        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
+        for i in keyboard:
+            mark.add(i)
+    else:
+        keyboard = [
+            KeyboardButton("Ibuprofen"),
+
+            KeyboardButton("Paracetamo"),
+
+            KeyboardButton("Ibuprofen AND Paracetamol"),
+
+            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
+
+            KeyboardButton("No allergies to the medications listed"),
+
+        ]
+        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
+        for i in keyboard:
+            mark.add(i)
+
+    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                     chat_id=message)
+
+    msg = bot.send_message(text="Has the patient tried any of the fever medication below?", reply_markup=mark,
+                           chat_id=message)
 
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
-
     if call.data == "dia":
-        age(call.message.chat.id, "diarrhoea")
+        ages(call.message.chat.id, "diarrhoea")
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "fever":
-        age(call.message.chat.id, "fever")
+        ages(call.message.chat.id, "fever")
         bot.answer_callback_query(call.id, "")
 
     # elif call.data == "yes":
@@ -290,10 +636,12 @@ def callback_query(call):
 
     elif call.data == "how long fever child":
         howlong(call.message.chat.id, "fever", 'c')
+        person.append("c")
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "how long fever adult":
         howlong(call.message.chat.id, "fever", "a")
+        person.append("a")
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "fever symptoms child":
@@ -330,347 +678,6 @@ def callback_query(call):
     elif call.data == "no paracetamol fever never improve":
         feverallergy(call.message.chat.id, True)
         bot.answer_callback_query(call.id, "")
-
-
-
-
-# @bot.message_handler(func=lambda call: True)
-# def answer(message: Message):
-#
-    # cid = message.chat.id
-    # mid = message.message_id
-    # message_text = message.text
-    # user_id = message.from_user.id
-    # user_name = message.from_user.first_name
-    # if message.text == "Loperamide (Brand Name: Imodium)" \
-    #         or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
-    #         or message.text == "Kaolin (Brand Name: Kaomix)" \
-    #         or message.text == "Medicinal Charcoal (Brand Name: Ultracarbon/Norit)" \
-    #         or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
-    #     triedmedicineduration(message.chat.id)
-    #
-    # elif message.text == "Lactobacillus Acidophilus (Brand Name: Lacteol Forte)" \
-    #         or message.text == "Oral Rehydration Salts (Brand Name: Hydralyte)" \
-    #         or message.text == "Traditional Chinese Medicine" \
-    #         or message.text == "No, I have not tried any diarrhoea medication yet":
-    #     rawfood(message.chat.id)
-    #
-    # elif message.text == "Diclofenac" \
-    #         or message.text == "Both Paracetamol and Ibuprofen" \
-    #         or message.text == "Ibuprofen":\
-    #
-    #     feverimproved(message.chat.id, False)
-    #
-    # elif message.text == "Traditional Chinese Medicine" \
-    #         or message.text == "No, I have not tried any fever medication yet": \
-    #         feverallergy(message.chat.id, False)
-    #
-    # elif message.text == "Traditional Chinese Medicine" \
-    #         or message.text == "No, I have not tried any fever medication yet": \
-    #         feverallergy(message.chat.id, False)
-
-
-
-
-
-
-
-def age(message, condition):
-    if condition == "diarrhoea":
-        keyboard = [
-
-            [InlineKeyboardButton("Infant (0-1 Y.O.)", callback_data="unsuitable age")],
-
-            [InlineKeyboardButton("Elderly (65 Y.O. and above)", callback_data="unsuitable age")],
-
-            [InlineKeyboardButton("Children (2-17 Y.O.)", callback_data="how long diarrhoea")],
-
-            [InlineKeyboardButton("Adult (18-64 Y.O.)", callback_data="how long diarrhoea")],
-
-        ]
-    else:
-        keyboard = [
-
-            [InlineKeyboardButton("Infant (0-1 Y.O.)", callback_data="fever unsuitable age")],
-
-            [InlineKeyboardButton("Children (6 Mnth-12 Y.O.)", callback_data="how long fever child")],
-
-            [InlineKeyboardButton("Adult (13 Y.O. and above)", callback_data="how long fever adult")],
-
-        ]
-
-    bot.send_message(text="How old is the patient?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
-
-
-
-
-
-
-def howlong(message, condition, age):
-    if condition == "diarrhoea":
-        keyboard = [
-            [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea")],
-            [InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried")],
-        ]
-    else:
-        if age == "c":
-            keyboard = [
-                [InlineKeyboardButton("More than 3 days", callback_data="serious fever")],
-                [InlineKeyboardButton("Less than 3 days", callback_data="fever symptoms child")],
-            ]
-        else:
-            keyboard = [
-                [InlineKeyboardButton("More than 3 days", callback_data="serious fever")],
-                [InlineKeyboardButton("Less than 3 days", callback_data="fever symptoms adult")],
-            ]
-
-
-
-    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
-
-
-
-
-
-def rawfood(message):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="maybe more serious condition")],
-        [InlineKeyboardButton("No", callback_data="got travel")],
-    ]
-    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
-                     chat_id=message)
-    bot.send_message(text="Has the patient eaten anything raw or undercooked recently?",
-                     reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
-
-
-def diarrhoeasymptoms1(message):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
-        [InlineKeyboardButton("No", callback_data="got travel2")],
-    ]
-    bot.send_message(text="Have the patient displayed any of the symptoms below? \n"
-                          "\n"
-                          "For adults: \n"
-                          "-Black sticky or bloody stools \n"
-                          "-Fever above 39 degrees Celsius \n"
-                          "-Severe pain in the stomach or anus area \n"
-                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin \n"
-                          "\n"
-                          "For children: \n"
-                          "-Black sticky or bloody stools \n"
-                          "-Severe pain in the stomach or anus area \n"
-                          "-Sunken stomach, eyes or cheeks \n"
-                          "-Sleepy or unresponsive-Cries with no tears or dry mouth \n"
-                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin",
-                     reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
-
-
-def diarrhoeasymptoms2(message):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
-        [InlineKeyboardButton("No", callback_data="allergies")],
-    ]
-    bot.send_message(text="Have the patient displayed any of the symptoms below? \n"
-                          "\n"
-                          "For adults: \n"
-                          "-Black sticky or bloody stools \n"
-                          "-Fever above 39 degrees Celsius \n"
-                          "-Severe pain in the stomach or anus area \n"
-                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin \n"
-                          "\n"
-                          "For children: \n"
-                          "-Black sticky or bloody stools \n"
-                          "-Severe pain in the stomach or anus area \n"
-                          "-Sunken stomach, eyes or cheeks \n"
-                          "-Sleepy or unresponsive-Cries with no tears or dry mouth \n"
-                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin",
-                     reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
-
-
-def travel(message):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
-        [InlineKeyboardButton("No", callback_data="diarrhoeasymptoms2")],
-    ]
-    bot.send_message(text="Has the patient travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
-
-
-def travel2(message):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="more serious condition")],
-        [InlineKeyboardButton("No", callback_data="allergies")],
-    ]
-    bot.send_message(text="Has the patient travelled for the past week?", reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
-
-
-def allergies(message):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="have allergy")],
-        [InlineKeyboardButton("No", callback_data="are you a breastfeeder")],
-    ]
-    bot.send_message(text="Is the patient allergic to any of the medication below?\n"
-                          "\n"
-                          "-Aluminum Silicates \n"
-                          "-Medicinal Charcoal \n"
-                          "-Dioctahedral Smectite (Brand Name: Smecta)", reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
-
-
-def breastfeed(message):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="pregnant options")],
-        [InlineKeyboardButton("No", callback_data="normal options")],
-    ]
-    bot.send_message(text="Is pregnancy or breastfeeding an issue to the patient?",
-                     reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
-
-
-def normaloptions(message):
-    keyboard = [
-        [InlineKeyboardButton("Liquid", callback_data="liquid")],
-        [InlineKeyboardButton("Tablets", callback_data="tablets")],
-        [InlineKeyboardButton("Capsules", callback_data="capsules")],
-        [InlineKeyboardButton("Powder Sachets", callback_data="powder")],
-        [InlineKeyboardButton("No Preference", callback_data="tablets")],
-    ]
-    bot.send_message(text="What kind of medicine will the patient prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
-
-
-def pregnantoptions(message):
-    keyboard = [
-        [InlineKeyboardButton("Liquid", callback_data="liquid")],
-        [InlineKeyboardButton("Tablets", callback_data="tablets")],
-        [InlineKeyboardButton("Capsules", callback_data="capsules")],
-        [InlineKeyboardButton("No Preference", callback_data="tablets")],
-    ]
-    bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
-
-def feversymptoms(message, age):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="yes fever symptoms")],
-        [InlineKeyboardButton("No", callback_data="no fever symptoms")],
-    ]
-    if age == "c":
-
-        bot.send_message(text="Has the patient developed any of the symptoms below? \n"
-                              "\n"
-                              "-Temperature is higher than 40°C \n"
-                              "\n"
-                              "-Red or purple rashes developing \n"
-                              "\n"
-                              "-Headache, stiff neck or is discomfort under bright light \n"
-                              "\n"
-                              "-Difficulty in breathing, faints or not responding \n"
-                              "\n"
-                              "-Has a fit or lacks energy \n"
-                              "\n"
-                              "-Look more unwell \n"
-                              "\n"
-                              "-Display symptoms of dehydration such as sunken eyes, dry diapers, and poor elasticity",
-                         reply_markup=InlineKeyboardMarkup(keyboard),
-                         chat_id=message)
-    else:
-
-        bot.send_message(text="Has the patient displayed any of the symptoms below? \n"
-                              "\n"
-                              "-Temperature is or higher than 39.4°C-Symptoms worsen \n"
-                              "\n"
-                              "-Feeling confused or stiff neck-Skin rashes developing \n"
-                              "\n"
-                              "-Very bad diarrhoea, headache or vomiting occurs \n"
-                              "\n"
-                              "-Difficulty in breathing or chest pain \n"
-                              "\n"
-                              "-If patient have cancer, heart diseases, diabetes, AIDS or are taking medicines "
-                              "that might weaken the immune system",
-                         reply_markup=InlineKeyboardMarkup(keyboard),
-                         chat_id=message)
-
-def triedfevermedicine(message):
-    keyboard = [
-        KeyboardButton("Diclofenac"),
-
-        KeyboardButton("Both Paracetamol and Ibuprofen"),
-
-        KeyboardButton("Ibuprofen"),
-
-        KeyboardButton("Paracetamol"),
-
-        KeyboardButton("Traditional Chinese Medicine"),
-
-        KeyboardButton("No, I have not tried any fever medication yet"),
-
-    ]
-    mark = ReplyKeyboardMarkup(one_time_keyboard=True)
-    for i in keyboard:
-        mark.add(i)
-    bot.send_message(text="Has the patient tried any of the fever medication below?", reply_markup=mark,
-                     chat_id=message)
-
-def feverimproved(message, paracetamol):
-    if paracetamol:
-        keyboard = [
-            [InlineKeyboardButton("Yes", callback_data="yes fever improve")],
-            [InlineKeyboardButton("No", callback_data="no paracetamol fever never improve")],
-        ]
-
-    else:
-        keyboard = [
-            [InlineKeyboardButton("Yes", callback_data="yes fever improve")],
-            [InlineKeyboardButton("No", callback_data="no fever never improve")],
-        ]
-
-    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
-                     chat_id=message)
-
-    bot.send_message(text="Has the medication improved the patient’s fever?", reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
-
-
-def feverallergy(message, paracetamol):
-    if paracetamol:
-        keyboard = [
-            KeyboardButton("Ibuprofen"),
-
-            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
-
-            KeyboardButton("No allergies to the medications listed"),
-
-        ]
-        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
-        for i in keyboard:
-            mark.add(i)
-    else:
-        keyboard = [
-            KeyboardButton("Ibuprofen"),
-
-            KeyboardButton("Paracetamo"),
-
-            KeyboardButton("Ibuprofen AND Paracetamol"),
-
-            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
-
-            KeyboardButton("No allergies to the medications listed"),
-
-        ]
-        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
-        for i in keyboard:
-            mark.add(i)
-
-    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
-                     chat_id=message)
-
-    bot.send_message(text="Has the patient tried any of the fever medication below?", reply_markup=mark,
-                     chat_id=message)
-
-
-
 
 
 # def jerod(message):
