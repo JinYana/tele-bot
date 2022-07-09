@@ -11,13 +11,14 @@ bot = telebot.TeleBot(API_KEY)
 
 
 
-currentmsgid = ""
+
+
 
 @bot.message_handler(commands=['start'])
 def start(message):
     keyboard = [
-        [InlineKeyboardButton("I need help with diarrhoea!", callback_data="rec"), ],
-        [InlineKeyboardButton("test!", callback_data="test3"), ]
+        [InlineKeyboardButton("I need help with diarrhoea!", callback_data="dia"), ],
+        [InlineKeyboardButton("I need help with fever!", callback_data="fever"), ]
     ]
     bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message.chat.id)
@@ -30,15 +31,13 @@ def start(message):
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call, currentmsgid=None):
 
-    if call.data == "rec":
-        age(call.message.chat.id)
+    if call.data == "dia":
+        age(call.message.chat.id, "diarrhoea")
         bot.answer_callback_query(call.id, "")
 
-    if call.data == "test3":
-        test(call.message.chat.id)
+    elif call.data == "fever":
+        age(call.message.chat.id, "fever")
         bot.answer_callback_query(call.id, "")
-
-
 
     # elif call.data == "yes":
     #     jerod2(call.message.chat.id)
@@ -46,16 +45,16 @@ def callback_query(call, currentmsgid=None):
     # elif call.data == "no":
     #     age(call.message.chat.id)
 
-    elif call.data == "unsuitable age" and call.message.chat.id != currentmsgid:
+    elif call.data == "unsuitable age":
         bot.send_message(call.message.chat.id,
                          "Oh no! Due to the age, patient is at high risk of developing complications due to diarrhoea. Be kindly advised to seek treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "how long diarrhoea" and call.message.chat.id != currentmsgid:
-        howlong(call.message.chat.id)
+    elif call.data == "how long diarrhoea":
+        howlong(call.message.chat.id, "diarrhoea")
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "serious diarrhoea" and call.message.chat.id != currentmsgid:
+    elif call.data == "serious diarrhoea":
         bot.send_message(call.message.chat.id,
                          "Oh no! The diarrhoea seems to be much more serious than expected. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
@@ -63,11 +62,11 @@ def callback_query(call, currentmsgid=None):
 
 
 
-    elif call.data == "which medincine have been tried" and call.message.chat.id != currentmsgid:
+    elif call.data == "which medincine have been tried":
         triedmedicine(call.message.chat.id)
 
 
-    elif call.data == "waitandsee" and call.message.chat.id != currentmsgid:
+    elif call.data == "waitandsee":
         bot.send_message(call.message.chat.id,
                          "You might want to continue the medication for 2 days from the first loose stool to see if "
                          "there is any improvement. If there is still no improvement after 2 days, seek treatment from "
@@ -75,52 +74,52 @@ def callback_query(call, currentmsgid=None):
         bot.answer_callback_query(call.id, "")
 
 
-    elif call.data == "maybe more serious condition" and call.message.chat.id != currentmsgid:
+    elif call.data == "maybe more serious condition":
         diarrhoeasymptoms1(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "diarrhoeasymptoms2" and call.message.chat.id != currentmsgid:
+    elif call.data == "diarrhoeasymptoms2":
         diarrhoeasymptoms2(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "more serious condition" and call.message.chat.id != currentmsgid:
+    elif call.data == "more serious condition":
         bot.send_message(call.message.chat.id,
                          "Oh no! The symptoms might be a sign of a more serious condition. Be kindly advised to seek "
                          "treatment from a doctor or a healthcare professional as soon as possible. Get well soon")
         bot.answer_callback_query(call.id, "")
 
 
-    elif call.data == "got travel" and call.message.chat.id != currentmsgid:
+    elif call.data == "got travel":
         travel(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "got travel2" and call.message.chat.id != currentmsgid:
+    elif call.data == "got travel2":
         travel2(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "allergies" and call.message.chat.id != currentmsgid:
+    elif call.data == "allergies":
         allergies(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "have allergy" and call.message.chat.id != currentmsgid:
+    elif call.data == "have allergy":
         bot.send_message(call.message.chat.id,
                          "Oh no! You might want to seek treatment from a doctor or healthcare professional as soon "
                          "as possible to prevent triggering any of the allergies from the medications. Get well soon!")
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "are you a breastfeeder" and call.message.chat.id != currentmsgid:
+    elif call.data == "are you a breastfeeder":
         breastfeed(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "pregnant options" and call.message.chat.id != currentmsgid:
+    elif call.data == "pregnant options":
         pregnantoptions(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "normal options" and call.message.chat.id != currentmsgid:
+    elif call.data == "normal options":
         normaloptions(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
-    elif call.data == "tablets" and call.message.chat.id != currentmsgid:
+    elif call.data == "tablets":
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
                        caption="We recommend using Ultracarbon"
                                "\n"
@@ -150,7 +149,7 @@ def callback_query(call, currentmsgid=None):
 
 
 
-    elif call.data == "capsules" and call.message.chat.id != currentmsgid:
+    elif call.data == "capsules":
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
                        caption="We recommend using Norit\n"
                                "Brand Name: Norit \n"
@@ -178,7 +177,7 @@ def callback_query(call, currentmsgid=None):
         bot.answer_callback_query(call.id, "")
 
 
-    elif call.data == "liquid" and call.message.chat.id != currentmsgid:
+    elif call.data == "liquid":
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
                        caption="We recommend using Kaomix\n"
                                "Brand Name: Kaomix \n"
@@ -207,7 +206,7 @@ def callback_query(call, currentmsgid=None):
         bot.answer_callback_query(call.id, "")
 
 
-    elif call.data == "powder" and call.message.chat.id != currentmsgid:
+    elif call.data == "powder":
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
                        caption="We recommend using Smecta\n"
                                "Brand Name: Smecta \n"
@@ -233,13 +232,100 @@ def callback_query(call, currentmsgid=None):
 
 
 
-@bot.message_handler(func=lambda call: True)
-def answer(message: Message):
-    cid = message.chat.id
-    mid = message.message_id
-    message_text = message.text
-    user_id = message.from_user.id
-    user_name = message.from_user.first_name
+
+    elif call.data == "fever unsuitable age":
+        bot.send_message(call.message.chat.id,
+                         "Oh no! Due to the age, patient is at high risk of developing complications from fever. "
+                         "Be kindly advised to seek treatment from a doctor or a healthcare professional as soon "
+                         "as possible. Get well soon!")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "how long fever child":
+        howlong(call.message.chat.id, "fever", 'c')
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "how long fever adult":
+        howlong(call.message.chat.id, "fever", "a")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "fever symptoms child":
+        feversymptoms(call.message.chat.id, "c")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "fever symptoms adult":
+        feversymptoms(call.message.chat.id, "a")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "yes fever symptoms":
+        bot.send_message(call.message.chat.id,
+                         "Oh no! The symptoms might be a sign of a more serious condition. "
+                         "Be kindly advised to seek treatment from a doctor or a healthcare professional "
+                         "as soon as possible. Get well soon!")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "no fever symptoms":
+        triedfevermedicine(call.message.chat.id)
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "no fever never improve":
+        bot.send_message(call.message.chat.id,
+                         "Oh no! The fever seems to be much more serious than expected. Be kindly advised to seek "
+                         "treatment from a doctor or a healthcare professional as soon as possible. Get well soon!")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "yes fever improve":
+        bot.send_message(call.message.chat.id,
+                         "Patient might want to continue the same treatment until recovery or if there is no resolution,"
+                         " seek treatment from a doctor or healthcare professional as soon as possible. Get well soon!")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "no paracetamol fever never improve":
+        feverallergy(call.message.chat.id, True)
+        bot.answer_callback_query(call.id, "")
+
+
+
+
+# @bot.message_handler(func=lambda call: True)
+# def answer(message: Message):
+#
+    # cid = message.chat.id
+    # mid = message.message_id
+    # message_text = message.text
+    # user_id = message.from_user.id
+    # user_name = message.from_user.first_name
+    # if message.text == "Loperamide (Brand Name: Imodium)" \
+    #         or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
+    #         or message.text == "Kaolin (Brand Name: Kaomix)" \
+    #         or message.text == "Medicinal Charcoal (Brand Name: Ultracarbon/Norit)" \
+    #         or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
+    #     triedmedicineduration(message.chat.id)
+    #
+    # elif message.text == "Lactobacillus Acidophilus (Brand Name: Lacteol Forte)" \
+    #         or message.text == "Oral Rehydration Salts (Brand Name: Hydralyte)" \
+    #         or message.text == "Traditional Chinese Medicine" \
+    #         or message.text == "No, I have not tried any diarrhoea medication yet":
+    #     rawfood(message.chat.id)
+    #
+    # elif message.text == "Diclofenac" \
+    #         or message.text == "Both Paracetamol and Ibuprofen" \
+    #         or message.text == "Ibuprofen":\
+    #
+    #     feverimproved(message.chat.id, False)
+    #
+    # elif message.text == "Traditional Chinese Medicine" \
+    #         or message.text == "No, I have not tried any fever medication yet": \
+    #         feverallergy(message.chat.id, False)
+    #
+    # elif message.text == "Traditional Chinese Medicine" \
+    #         or message.text == "No, I have not tried any fever medication yet": \
+    #         feverallergy(message.chat.id, False)
+
+
+
+
+def test9(message):
+
     if message.text == "Loperamide (Brand Name: Imodium)" \
             or message.text == "Diphenoxylate / Atropine (Brand Name: Dhamotil)" \
             or message.text == "Kaolin (Brand Name: Kaomix)" \
@@ -247,37 +333,31 @@ def answer(message: Message):
             or message.text == "Dioctahedral Smectite (Brand Name: Smecta)":
         triedmedicineduration(message.chat.id)
 
-    elif message.text == "Lactobacillus Acidophilus (Brand Name: Lacteol Forte)" \
-            or message.text == "Oral Rehydration Salts (Brand Name: Hydralyte)" \
-            or message.text == "Traditional Chinese Medicine" \
-            or message.text == "No, I have not tried any diarrhoea medication yet":
-        rawfood(message.chat.id)
-    elif message.text == "2":
-        cid = message.chat.id
-        mid = message.message_id
-        message_text = message.text
-        user_id = message.from_user.id
-        user_name = message.from_user.first_name
 
-        if isinstance(int(message_text), int):
-            num = int(message_text) + 2
-            bot.send_message(cid,
-                             "Your number is now " + str(num))
+def age(message, condition):
+    if condition == "diarrhoea":
+        keyboard = [
 
+            [InlineKeyboardButton("Infant (0-1 Y.O.)", callback_data="unsuitable age")],
 
-# Diarrhoea bot
-def age(message):
-    keyboard = [
+            [InlineKeyboardButton("Elderly (65 Y.O. and above)", callback_data="unsuitable age")],
 
-        [InlineKeyboardButton("Infant (0-1 Y.O.)", callback_data="unsuitable age")],
+            [InlineKeyboardButton("Children (2-17 Y.O.)", callback_data="how long diarrhoea")],
 
-        [InlineKeyboardButton("Elderly (65 Y.O. and above)", callback_data="unsuitable age")],
+            [InlineKeyboardButton("Adult (18-64 Y.O.)", callback_data="how long diarrhoea")],
 
-        [InlineKeyboardButton("Children (2-17 Y.O.)", callback_data="how long diarrhoea")],
+        ]
+    else:
+        keyboard = [
 
-        [InlineKeyboardButton("Adult (18-64 Y.O.)", callback_data="how long diarrhoea")],
+            [InlineKeyboardButton("Infant (0-1 Y.O.)", callback_data="fever unsuitable age")],
 
-    ]
+            [InlineKeyboardButton("Children (6 Mnth-12 Y.O.)", callback_data="how long fever child")],
+
+            [InlineKeyboardButton("Adult (13 Y.O. and above)", callback_data="how long fever adult")],
+
+        ]
+
     bot.send_message(text="How old is the patient?", reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
@@ -304,15 +384,30 @@ def triedmedicine(message):
     mark = ReplyKeyboardMarkup(one_time_keyboard=True)
     for i in keyboard:
         mark.add(i)
-    bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
+    msg = bot.send_message(text="Has the patient tried any of the diarrhoea medication below?", reply_markup=mark,
                      chat_id=message)
+    test9(msg)
 
 
-def howlong(message):
-    keyboard = [
-        [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea")],
-        [InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried")],
-    ]
+def howlong(message, condition, age):
+    if condition == "diarrhoea":
+        keyboard = [
+            [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea")],
+            [InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried")],
+        ]
+    else:
+        if age == "c":
+            keyboard = [
+                [InlineKeyboardButton("More than 3 days", callback_data="serious fever")],
+                [InlineKeyboardButton("Less than 3 days", callback_data="fever symptoms child")],
+            ]
+        else:
+            keyboard = [
+                [InlineKeyboardButton("More than 3 days", callback_data="serious fever")],
+                [InlineKeyboardButton("Less than 3 days", callback_data="fever symptoms adult")],
+            ]
+
+
 
     bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
@@ -448,10 +543,126 @@ def pregnantoptions(message):
     bot.send_message(text="What kind of medicine would you prefer?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
 
-def test(message):
-    bot.send_message(text="Give me a number, I will add 2 to ur number",
+def feversymptoms(message, age):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="yes fever symptoms")],
+        [InlineKeyboardButton("No", callback_data="no fever symptoms")],
+    ]
+    if age == "c":
+
+        bot.send_message(text="Has the patient developed any of the symptoms below? \n"
+                              "\n"
+                              "-Temperature is higher than 40°C \n"
+                              "\n"
+                              "-Red or purple rashes developing \n"
+                              "\n"
+                              "-Headache, stiff neck or is discomfort under bright light \n"
+                              "\n"
+                              "-Difficulty in breathing, faints or not responding \n"
+                              "\n"
+                              "-Has a fit or lacks energy \n"
+                              "\n"
+                              "-Look more unwell \n"
+                              "\n"
+                              "-Display symptoms of dehydration such as sunken eyes, dry diapers, and poor elasticity",
+                         reply_markup=InlineKeyboardMarkup(keyboard),
+                         chat_id=message)
+    else:
+
+        bot.send_message(text="Has the patient displayed any of the symptoms below? \n"
+                              "\n"
+                              "-Temperature is or higher than 39.4°C-Symptoms worsen \n"
+                              "\n"
+                              "-Feeling confused or stiff neck-Skin rashes developing \n"
+                              "\n"
+                              "-Very bad diarrhoea, headache or vomiting occurs \n"
+                              "\n"
+                              "-Difficulty in breathing or chest pain \n"
+                              "\n"
+                              "-If patient have cancer, heart diseases, diabetes, AIDS or are taking medicines "
+                              "that might weaken the immune system",
+                         reply_markup=InlineKeyboardMarkup(keyboard),
+                         chat_id=message)
+
+def triedfevermedicine(message):
+    keyboard = [
+        KeyboardButton("Diclofenac"),
+
+        KeyboardButton("Both Paracetamol and Ibuprofen"),
+
+        KeyboardButton("Ibuprofen"),
+
+        KeyboardButton("Paracetamol"),
+
+        KeyboardButton("Traditional Chinese Medicine"),
+
+        KeyboardButton("No, I have not tried any fever medication yet"),
+
+    ]
+    mark = ReplyKeyboardMarkup(one_time_keyboard=True)
+    for i in keyboard:
+        mark.add(i)
+    bot.send_message(text="Has the patient tried any of the fever medication below?", reply_markup=mark,
                      chat_id=message)
-    tester()
+
+def feverimproved(message, paracetamol):
+    if paracetamol:
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="yes fever improve")],
+            [InlineKeyboardButton("No", callback_data="no paracetamol fever never improve")],
+        ]
+
+    else:
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="yes fever improve")],
+            [InlineKeyboardButton("No", callback_data="no fever never improve")],
+        ]
+
+    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                     chat_id=message)
+
+    bot.send_message(text="Has the medication improved the patient’s fever?", reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+
+def feverallergy(message, paracetamol):
+    if paracetamol:
+        keyboard = [
+            KeyboardButton("Ibuprofen"),
+
+            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
+
+            KeyboardButton("No allergies to the medications listed"),
+
+        ]
+        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
+        for i in keyboard:
+            mark.add(i)
+    else:
+        keyboard = [
+            KeyboardButton("Ibuprofen"),
+
+            KeyboardButton("Paracetamo"),
+
+            KeyboardButton("Ibuprofen AND Paracetamol"),
+
+            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
+
+            KeyboardButton("No allergies to the medications listed"),
+
+        ]
+        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
+        for i in keyboard:
+            mark.add(i)
+
+    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                     chat_id=message)
+
+    bot.send_message(text="Has the patient tried any of the fever medication below?", reply_markup=mark,
+                     chat_id=message)
+
+
+
 
 
 # def jerod(message):
