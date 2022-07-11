@@ -76,6 +76,15 @@ def getweight(message):
 
     bot.register_next_step_handler(msg, calculate)
 
+def doyouneedhelp(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="calculate")],
+        [InlineKeyboardButton("No", callback_data="dont calculate")],
+    ]
+
+    bot.send_message(text="Do you need help calculating the dosage for the patient?",
+                     reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
 
 def calculate(message):
     mass = int(message.text)
@@ -892,13 +901,7 @@ def callback_query(call):
                                        " \n"
                                        "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs")
 
-                keyboard = [
-                    [InlineKeyboardButton("Yes", callback_data="calculate")],
-                    [InlineKeyboardButton("No", callback_data="dont calculate")],
-                ]
-
-                bot.send_message(text="Do you need help calculating the dosage for the patient?", reply_markup=InlineKeyboardMarkup(keyboard),
-                                 chat_id=call.message.chat.id)
+                doyouneedhelp(call.messge.chat.id)
             else:
                 feverprefer(call.message.chat.id)
 
@@ -987,14 +990,7 @@ def callback_query(call):
                          " \n"
                          "swelling and difficulty in breathing occurs.")
 
-        keyboard = [
-            [InlineKeyboardButton("Yes", callback_data="calculate")],
-            [InlineKeyboardButton("No", callback_data="dont calculate")],
-        ]
-
-        bot.send_message(text="Do you need help calculating the dosage for the patient?",
-                         reply_markup=InlineKeyboardMarkup(keyboard),
-                         chat_id=call.message.chat.id)
+        doyouneedhelp(call.messge.chat.id)
 
 
     elif call.data == "fever chewable child":
@@ -1024,14 +1020,7 @@ def callback_query(call):
                          " \n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
 
-        keyboard = [
-            [InlineKeyboardButton("Yes", callback_data="calculate")],
-            [InlineKeyboardButton("No", callback_data="dont calculate")],
-        ]
-
-        bot.send_message(text="Do you need help calculating the dosage for the patient?",
-                         reply_markup=InlineKeyboardMarkup(keyboard),
-                         chat_id=call.message.chat.id)
+        doyouneedhelp(call.messge.chat.id)
 
 
     elif call.data == "fever suppository child":
@@ -1060,14 +1049,7 @@ def callback_query(call):
                          " \n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
 
-        keyboard = [
-            [InlineKeyboardButton("Yes", callback_data="calculate")],
-            [InlineKeyboardButton("No", callback_data="dont calculate")],
-        ]
 
-        bot.send_message(text="Do you need help calculating the dosage for the patient?",
-                         reply_markup=InlineKeyboardMarkup(keyboard),
-                         chat_id=call.message.chat.id)
 
     elif call.data == "fever liquid adult":
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
