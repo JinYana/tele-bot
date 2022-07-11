@@ -902,7 +902,7 @@ def callback_query(call):
                                        " \n"
                                        "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs")
 
-                doyouneedhelp(call.messge.chat.id)
+                doyouneedhelp(call.message.chat.id)
             else:
                 feverprefer(call.message.chat.id)
 
@@ -954,7 +954,7 @@ def callback_query(call):
                                    " \n"
                                    "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs")
 
-            bot.answer_callback_query(call.id, "")
+
 
 
         else:
@@ -991,7 +991,7 @@ def callback_query(call):
                          " \n"
                          "swelling and difficulty in breathing occurs.")
 
-        doyouneedhelp(call.messge.chat.id)
+        doyouneedhelp(call.message.chat.id)
 
 
     elif call.data == "fever chewable child":
@@ -1021,7 +1021,7 @@ def callback_query(call):
                          " \n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
 
-        doyouneedhelp(call.messge.chat.id)
+        doyouneedhelp(call.message.chat.id)
 
 
     elif call.data == "fever suppository child":
@@ -1049,6 +1049,7 @@ def callback_query(call):
                          "-If fever persists for more than 24H (4 doses), please seek medical attention as soon as possible. \n"
                          " \n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+        doyouneedhelp(call.message.chat.id)
 
 
 
