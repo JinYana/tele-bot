@@ -85,7 +85,7 @@ def fevermsghandler(message):
 
 
 def feverallergymsghandler(message, paracetamol):
-    if (message.text == "Ibuprofen" and paracetamol and person[0] == "a") \
+    if (message.text == "Ibuprofen" and paracetamol) \
             or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
         0] == "a") \
             or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "a"): \
