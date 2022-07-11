@@ -1213,7 +1213,7 @@ def callback_query(call):
 
 
 
-@bot.message_handler(commands=['adviceD'])
+@bot.message_handler(commands=['advice_d'])
 def adviceD(message):
     bot.send_message(text="-Intake more fluids \n"
                           "-Avoid caffeine, alcohol, dairy, or acidic food \n"
@@ -1224,7 +1224,7 @@ def adviceD(message):
                           "-Avoid cold food and beverage \n",
                      chat_id=message.chat.id)
 
-@bot.message_handler(commands=['adviceF'])
+@bot.message_handler(commands=['advice_f'])
 def adviceF(message):
     bot.send_message(text="For adults: \n"
                           "-Drink plenty of fluids \n"
@@ -1241,7 +1241,7 @@ def adviceF(message):
                      chat_id=message.chat.id)
 
 
-@bot.message_handler(commands=['referD'])
+@bot.message_handler(commands=['refer_d'])
 def adviceD(message):
     bot.send_message(text="For adults: \n"
                           "-Diarrhoea last more than 3 days \n"
@@ -1261,7 +1261,7 @@ def adviceD(message):
                      chat_id=message.chat.id)
 
 
-@bot.message_handler(commands=['referF'])
+@bot.message_handler(commands=['refer_f'])
 def adviceF(message):
     bot.send_message(text="For adults: \n"
                           "-Temperature is or higher than 39.4°C \n"
