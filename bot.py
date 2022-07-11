@@ -1169,6 +1169,11 @@ def callback_query(call):
     elif call.data == "calculate":
         getweight(call.message)
 
+    elif call.data == "dont calculate":
+        bot.send_message(call.message.chat.id,
+                         "Take care and get well soon!")
+        bot.answer_callback_query(call.id, "")
+
 
     elif call.data == "dc":
         if len(panadol) > 0:
