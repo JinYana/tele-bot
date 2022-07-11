@@ -10,11 +10,13 @@ API_KEY = "5324891918:AAGKD1WX7zyIlX3aLKr-GAICBjenjsH-1Mg"
 bot = telebot.TeleBot(API_KEY)
 
 person = []
+panadol = []
 
 
 @bot.message_handler(commands=['start'])
 def start(message):
     person.clear()
+    panadol.clear()
     keyboard = [
         [InlineKeyboardButton("I need help with diarrhoea!", callback_data="dia"), ],
         [InlineKeyboardButton("I need help with fever!", callback_data="fever"), ]
@@ -71,17 +73,20 @@ def diamsghandler(message):
 def fevermsghandler(message):
     if message.text == "Diclofenac" \
             or message.text == "Both Paracetamol and Ibuprofen" \
-            or message.text == "Ibuprofen": \
- \
-            feverimproved(message.chat.id, False)
+            or message.text == "Ibuprofen":
 
-    elif message.text == "Paracetamol": \
- \
-            feverimproved(message.chat.id, True)
+        feverimproved(message.chat.id, False)
+
+    elif message.text == "Paracetamol":
+        panadol.clear()
+        feverimproved(message.chat.id, True)
+        panadol.append("yes")
+
 
     elif message.text == "Traditional Chinese Medicine" \
-            or message.text == "No, I have not tried any fever medication yet": \
-            feverallergy(message.chat.id, False)
+            or message.text == "No, I have not tried any fever medication yet":
+
+        feverallergy(message.chat.id, False)
 
 
 def feverallergy(message, paracetamol):
@@ -130,26 +135,30 @@ def feverallergymsghandler(message, paracetamol):
     if (message.text == "Ibuprofen" and paracetamol and person[0] == "a") \
             or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
         0] == "a") \
-            or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "a"): \
-            bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
-                                  "Be kindly advised to seek treatment from a doctor or a healthcare professional "
-                                  "as soon as possible. Get well soon! \n"
-                                  "\n"
-                                  "In the meantime, what the patient can do are: \n"
-                                  "\n"
-                                  "-Drink plenty of fluids \n"
-                                  "\n"
-                                  "-Avoid caffeine of any form \n"
-                                  "\n"
-                                  "-Take plenty of rest \n"
-                                  "\n"
-                                  "-Place cool tower to the skin near the neck and to the armpits \n",
-                             chat_id=message.chat.id)
+            or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "a"):
+        bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                         chat_id=message.chat.id)
+        bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
+                              "Be kindly advised to seek treatment from a doctor or a healthcare professional "
+                              "as soon as possible. Get well soon! \n"
+                              "\n"
+                              "In the meantime, what the patient can do are: \n"
+                              "\n"
+                              "-Drink plenty of fluids \n"
+                              "\n"
+                              "-Avoid caffeine of any form \n"
+                              "\n"
+                              "-Take plenty of rest \n"
+                              "\n"
+                              "-Place cool tower to the skin near the neck and to the armpits \n",
+                         chat_id=message.chat.id)
 
     elif (message.text == "Ibuprofen" and paracetamol and person[0] == "c") \
             or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
         0] == "c") \
             or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "c"):
+        bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                         chat_id=message.chat.id)
         bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
                               "Be kindly advised to seek treatment from a doctor or a healthcare professional "
                               "as soon as possible. Get well soon! \n"
@@ -166,6 +175,93 @@ def feverallergymsghandler(message, paracetamol):
                               "\n"
                               "-Sponge with room temperature water to the skin near the neck and to the armpits \n",
                          chat_id=message.chat.id)
+
+
+    elif (message.text == "Ibuprofen" and not paracetamol) \
+            or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and not paracetamol) \
+            or message.text == "Paracetamol" or message.text == "No allergies to the medications listed":
+        bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                         chat_id=message.chat.id)
+        dengue(message.chat.id,)
+
+def dengue(message):
+
+    if panadol[0] == "yes":
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="got dengue")],
+            [InlineKeyboardButton("No", callback_data="no dengue")],
+        ]
+    else:
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="no dengue")],
+            [InlineKeyboardButton("No", callback_data="no dengue")],
+        ]
+
+
+    bot.send_message(
+        text="Is your fever associated with Dengue or Chicken Pox? \n"
+             " \n"
+             " \n"
+             "Symptoms for Dengue: \n"
+             " \n"
+             "-Sudden fever lasting 2 to 7 days \n"
+             " \n"
+             "-Pain behind eyes with severe headache \n"
+             " \n"
+             "-Muscle and joint pain-Skin rashes \n"
+             " \n"
+             "-Nausea and vomiting \n"
+             " \n"
+             "-Mild bleeding such as nose or gum bleed and easily bruising of skin \n"
+             " \n"
+             " \n"
+             "Symptoms of Chicken Pox: \n"
+             " \n"
+             "-Fever \n"
+             " \n"
+             "-Itchy red spots on body and face that turns to blister progressively, which will burst, dry up, and form crusts \n",
+        reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
+def prego(message):
+    if panadol[0] == "yes":
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="got prego")],
+            [InlineKeyboardButton("No", callback_data="no dengue")],
+        ]
+    else:
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="no prego")],
+            [InlineKeyboardButton("No", callback_data="no prego")],
+        ]
+
+    bot.send_message(
+        text="Is pregnancy an issue to the patient?",
+        reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
+def feverprefer(message):
+    if panadol[0] == "yes":
+        keyboard = [
+            [InlineKeyboardButton("Liquid", callback_data="got prego")],
+            [InlineKeyboardButton("Tablets", callback_data="no dengue")],
+        ]
+    else:
+        if person[0] == "c":
+            keyboard = [
+                [InlineKeyboardButton("Liquid", callback_data="fever liquid child")],
+                [InlineKeyboardButton("Suppository", callback_data="fever suppository child")],
+                [InlineKeyboardButton("Chewable Tablets", callback_data="fever chewable child")],
+            ]
+        else:
+            keyboard = [
+                [InlineKeyboardButton("Liquid", callback_data="fever liquid adult")],
+                [InlineKeyboardButton("Suppository", callback_data="fever suppository adult")],
+                [InlineKeyboardButton("Tablets", callback_data="fever tablets adult")],
+            ]
+
+    bot.send_message(
+        text="Is pregnancy an issue to the patient?",
+        reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
+
 
 
 def triedmedicineduration(message):
@@ -699,6 +795,164 @@ def callback_query(call):
     elif call.data == "no paracetamol fever never improve":
         feverallergy(call.message.chat.id, True)
         bot.answer_callback_query(call.id, "")
+
+    elif call.data == "got dengue":
+        if person[0] == "a":
+            bot.send_message(call.message.chat.id,
+                             "Oh no! It seems like both over-the-counter fever medications won’t work for you. "
+                             "Be kindly advised to seek treatment from a doctor or a healthcare professional "
+                             "as soon as possible. Get well soon! \n"
+                             "\n"
+                             "In the meantime, what the patient can do are: \n"
+                             "\n"
+                             "-Drink plenty of fluids \n"
+                             "\n"
+                             "-Avoid caffeine of any form \n"
+                             "\n"
+                             "-Take plenty of rest \n"
+                             "\n"
+                             "-Place cool tower to the skin near the neck and to the armpits \n", )
+            bot.answer_callback_query(call.id, "")
+        else:
+            bot.send_message(call.message.chat.id, "Oh no! It seems like both over-the-counter fever medications won’t work for you. "
+                                  "Be kindly advised to seek treatment from a doctor or a healthcare professional "
+                                  "as soon as possible. Get well soon! \n"
+                                  "\n"
+                                  "In the meantime, what the patient can do are: \n"
+                                  "\n"
+                                  "-Drink plenty of fluids \n"
+                                  "\n"
+                                  "-Take plenty of rest \n"
+                                  "\n"
+                                  "-Make sure the child’s environment is not too hot and is comfortable \n"
+                                  "\n"
+                                  "-Dress child in light clothing \n"
+                                  "\n"
+                                  "-Sponge with room temperature water to the skin near the neck and to the armpits \n")
+            bot.answer_callback_query(call.id, "")
+
+    elif call.data == "no dengue":
+        if person[0] == "a":
+            prego(call.message.chat.id)
+            bot.answer_callback_query(call.id, "")
+        else:
+            feverprefer(call.message.chat.id)
+
+    elif call.data == "got prego":
+        bot.send_message(call.message.chat.id,
+                         "Oh no! It seems like both over-the-counter fever medications won’t work for you. "
+                         "Be kindly advised to seek treatment from a doctor or a healthcare professional "
+                         "as soon as possible. Get well soon! \n"
+                         "\n"
+                         "In the meantime, what the patient can do are: \n"
+                         "\n"
+                         "-Drink plenty of fluids \n"
+                         "\n"
+                         "-Avoid caffeine of any form \n"
+                         "\n"
+                         "-Take plenty of rest \n"
+                         "\n"
+                         "-Place cool tower to the skin near the neck and to the armpits \n")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "no prego":
+        # if panadol[0] == "yes":
+        #     if person[0] == "c":
+        #
+        #     else:
+        #
+        # else:
+            feverprefer(call.message.chat.id)
+
+    elif call.data == "fever liquid child":
+        bot.send_message(call.message.chat.id,
+                         "Brand Name: Panadol Children Suspension \n"
+                         " \n"
+                         "Active Ingredient: Paracetamol \n"
+                         " \n"
+                         "Use For: Fever and Pain relieve. \n"
+                         " \n"
+                         "Dosing: 10-15mg/kg of child’s body weight (Refer to leaflet). \n"
+                         " \n"
+                         "How It Works: Exhibits analgesic, antipyretic, and weak anti-inflammatory effects. \n"
+                         " \n"
+                         "Common Side Effects: Hematological reactions\n"
+                         " \n"
+                         " \n"
+                         "Note: \n"
+                         " \n"
+                         "-Avoid taking with blood thinner medications. \n"
+                         " \n"
+                         "-Do not take more than 4 doses in any 24H period. \n"
+                         " \n"
+                         "-Do not take more frequently than 4H. \n"
+                         " \n"
+                         "-Do not take for more than 3 days unless told so. \n"
+                         " \n"
+                         "-If fever persists for more than 24H (4 doses), please seek medical attention as soon as possible. \n"
+                         " \n"
+                         "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye "
+                         " \n"
+                         "swelling and difficulty in breathing occurs.")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "fever chewable child":
+        bot.send_message(call.message.chat.id,
+                         "Brand Name: Panadol for Children Chewable Tablets \n"
+                         " \n"
+                         "Active Ingredient: Paracetamol \n"
+                         " \n"
+                         "Use For: Fever and Pain relieve. \n"
+                         " \n"
+                         "Dosing: 10-15mg/kg of child’s body weight (Refer to leaflet). \n"
+                         " \n"
+                         "How It Works: Exhibits analgesic, antipyretic, and weak anti-inflammatory effects. \n"
+                         " \n"
+                         "Common Side Effects: Hematological reactions \n"
+                         " \n"
+                         " \n"
+                         "Note:  \n"
+                         " \n"
+                         "-Avoid taking with blood thinner medications. \n"
+                         " \n"
+                         "-Do not take more than 4 doses in any 24H period. \n"
+                         " \n"
+                         "-Do not take more frequently than 4H.-Do not take for more than 3 days unless told so. \n"
+                         " \n"
+                         "-If fever persists for more than 24H (4 doses), please seek medical attention as soon as possible. \n"
+                         " \n"
+                         "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "fever suppository child":
+        bot.send_message(call.message.chat.id,
+                         "Brand Name: Remedol 125 Suppository  \n"
+                         " \n"
+                         "Active Ingredient: Paracetamol \n"
+                         " \n"
+                         "Use For: Fever and Pain relieve. \n"
+                         " \n"
+                         "Dosing: 1-6 Y.O. (1 suppository of 250mg), 6-12Y.O. (1 suppository of 500mg) \n"
+                         " \n"
+                         "How It Works: Exhibits analgesic, antipyretic, and weak anti-inflammatory effects. \n"
+                         " \n"
+                         "Common Side Effects: Hematological reactions, Skin rashes. \n"
+                         " \n"
+                         "Note: \n"
+                         " \n"
+                         "-Avoid taking with blood thinner medications. \n"
+                         " \n"
+                         "-Do not take more than 4 doses in any 24H period. \n"
+                         " \n"
+                         "-Do not take more frequently than 4H.-Do not take for more than 3 days unless told so. \n"
+                         " \n"
+                         "-If fever persists for more than 24H (4 doses), please seek medical attention as soon as possible. \n"
+                         " \n"
+                         "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+        bot.answer_callback_query(call.id, "")
+
+
+
 
 
 # def jerod(message):
