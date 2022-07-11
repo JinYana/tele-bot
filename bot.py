@@ -81,7 +81,7 @@ def fevermsghandler(message):
 
     elif message.text == "Traditional Chinese Medicine" \
             or message.text == "No, I have not tried any fever medication yet": \
-            feverallergy(message.chat.id, True)
+            feverallergy(message.chat.id, False)
 
 
 def feverallergymsghandler(message):
