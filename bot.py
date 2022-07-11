@@ -419,6 +419,10 @@ def feverallergy(message, paracetamol):
         mark = ReplyKeyboardMarkup(one_time_keyboard=True)
         for i in keyboard:
             mark.add(i)
+
+        msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
+                               chat_id=message)
+        bot.register_next_step_handler(msg, feverallergymsghandler)
     else:
         keyboard = [
             KeyboardButton("Ibuprofen"),
@@ -436,12 +440,13 @@ def feverallergy(message, paracetamol):
         for i in keyboard:
             mark.add(i)
 
-    # bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
-    #                  chat_id=message)
+        msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
+                               chat_id=message)
+        bot.register_next_step_handler(msg, feverallergymsghandler)
 
-    msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
-                           chat_id=message)
-    bot.register_next_step_handler(msg, fevermsghandler)
+
+
+
 
 
 @bot.callback_query_handler(func=lambda call: True)
