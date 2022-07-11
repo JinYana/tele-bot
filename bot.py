@@ -74,9 +74,9 @@ def diamsghandler(message):
 
 def getweight(message):
     msg = bot.send_message(text="Please type the weight of the patient in kilograms.",
-                           chat_id=message.chat.id)
+                           chat_id=message)
 
-
+    bot.register_next_step_handler(msg, calculate)
 
 
 
