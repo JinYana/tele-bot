@@ -81,19 +81,18 @@ def getweight(message):
 
 
 def calculate(message):
-    mass = str(message.text)
-    mass = int(mass)
+    mass = message.text
     if len(panadol) > 0:
         lowmass = mass * 10
         highmass = mass * 20
         bot.send_message(
-            text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
+            text="The estimated dosing that the patient needs are between " + str(lowmass) + " to " + str(highmass) + "mg.",
             chat_id=message.chat.id)
     else:
         lowmass = mass * 10
         highmass = mass * 15
         bot.send_message(
-            text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
+            text="The estimated dosing that the patient needs are between " + str(lowmass) + " to " + str(highmass) + "mg.",
             chat_id=message.chat.id)
 
 
