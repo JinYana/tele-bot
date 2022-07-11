@@ -242,7 +242,7 @@ def prego(message):
         reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 def feverprefer(message):
-    if panadol[0] == "yes":
+    if len(panadol) > 0:
         keyboard = [
             [InlineKeyboardButton("Liquid", callback_data="got prego")],
             [InlineKeyboardButton("Tablets", callback_data="no dengue")],
