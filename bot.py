@@ -84,8 +84,45 @@ def fevermsghandler(message):
             feverallergy(message.chat.id, False)
 
 
+def feverallergy(message, paracetamol):
+    if paracetamol:
+        keyboard = [
+            KeyboardButton("Ibuprofen"),
+
+            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
+
+            KeyboardButton("No allergies to the medications listed"),
+
+        ]
+        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
+        for i in keyboard:
+            mark.add(i)
+
+
+    else:
+        keyboard = [
+            KeyboardButton("Ibuprofen"),
+
+            KeyboardButton("Paracetamol"),
+
+            KeyboardButton("Ibuprofen AND Paracetamol"),
+
+            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
+
+            KeyboardButton("No allergies to the medications listed"),
+
+        ]
+        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
+        for i in keyboard:
+            mark.add(i)
+
+    msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
+                           chat_id=message)
+    bot.register_next_step_handler(msg, feverallergymsghandler)
+
+
 def feverallergymsghandler(message):
-    if message.text == "Ibuprofen":
+    if True:
         bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
                               "Be kindly advised to seek treatment from a doctor or a healthcare professional "
                               "as soon as possible. Get well soon! \n"
@@ -401,41 +438,7 @@ def feverimproved(message, paracetamol):
                      chat_id=message)
 
 
-def feverallergy(message, paracetamol):
-    if paracetamol:
-        keyboard = [
-            KeyboardButton("Ibuprofen"),
 
-            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
-
-            KeyboardButton("No allergies to the medications listed"),
-
-        ]
-        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
-        for i in keyboard:
-            mark.add(i)
-
-
-    else:
-        keyboard = [
-            KeyboardButton("Ibuprofen"),
-
-            KeyboardButton("Paracetamol"),
-
-            KeyboardButton("Ibuprofen AND Paracetamol"),
-
-            KeyboardButton("Any other non-steroidal anti-inflammatory drugs (NSAIDs)"),
-
-            KeyboardButton("No allergies to the medications listed"),
-
-        ]
-        mark = ReplyKeyboardMarkup(one_time_keyboard=True)
-        for i in keyboard:
-            mark.add(i)
-
-    msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
-                           chat_id=message)
-    bot.register_next_step_handler(msg, feverallergymsghandler)
 
 
 
