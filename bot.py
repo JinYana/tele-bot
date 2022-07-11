@@ -70,6 +70,29 @@ def diamsghandler(message):
         rawfood(message.chat.id)
 
 
+def getweight(message):
+    msg = bot.send_message(text="Please type the weight of the patient in kilograms.",
+                           chat_id=message.chat.id)
+
+    bot.register_next_step_handler(msg, calculate)
+
+
+def calculate(message):
+    mass = int(message.text)
+    if len(panadol) > 0:
+        lowmass = mass * 10
+        highmass = mass * 20
+        bot.send_message(
+            text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
+            chat_id=message.chat.id)
+    else:
+        lowmass = mass * 10
+        highmass = mass * 15
+        bot.send_message(
+            text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
+            chat_id=message.chat.id)
+
+
 def fevermsghandler(message):
     if message.text == "Diclofenac" \
             or message.text == "Both Paracetamol and Ibuprofen" \
@@ -839,7 +862,46 @@ def callback_query(call):
             prego(call.message.chat.id)
             bot.answer_callback_query(call.id, "")
         else:
-            feverprefer(call.message.chat.id)
+            if len(panadol) > 0:
+
+                bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                               caption="Brand Name: Brufen \n"
+                                       " \n"
+                                       "Active Ingredient: Ibuprofen \n"
+                                       " \n"
+                                       "Use For: Fever and Pain relieve. \n"
+                                       " \n"
+                                       "Dosing: 5-10mg/kg of child’s body weight \n"
+                                       " \n"
+                                       "How It Works: Exhibits analgesic, antipyretic, and anti-inflammatory effects. \n"
+                                       " \n"
+                                       "Common Side Effects: diarrhea, constipation, nausea, stomach pain, bloating, and photosensitivity. \n"
+                                       " \n"
+                                       " \n"
+                                       "Note:  \n"
+                                       " \n"
+                                       "-Do not take if you have severe heart, liver, or kidney failure. \n"
+                                       " \n"
+                                       "-Do not take if you have stomach bleeding, perforation, or ulcers. \n"
+                                       " \n"
+                                       "-Do not take if you are pregnant or have increased risk of bleeding. \n"
+                                       " \n"
+                                       "-Do not take if you are allergic to any other non-steroidal anti-inflammatory drugs (NSAIDs). \n"
+                                       " \n"
+                                       "-Do not take if you have worsening or severe asthma. \n"
+                                       " \n"
+                                       "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs")
+
+                keyboard = [
+                    [InlineKeyboardButton("Yes", callback_data="calculate")],
+                    [InlineKeyboardButton("No", callback_data="dont calculate")],
+                ]
+
+                bot.send_message(text="Do you need help calculating the dosage for the patient?", reply_markup=InlineKeyboardMarkup(keyboard),
+                                 chat_id=call.message.chat.id)
+            else:
+                feverprefer(call.message.chat.id)
+
 
     elif call.data == "got prego":
         bot.send_message(call.message.chat.id,
@@ -859,17 +921,44 @@ def callback_query(call):
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "no prego":
-        # if len(panadol) > 0:
-        #     if person[0] == "c":
-        #
-        #     else:
-        #
-        # else:
+        if len(panadol) > 0:
+            bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                           caption="Brand Name: Neurofen \n"
+                                   " \n"
+                                   "Active Ingredient: Ibuprofen \n"
+                                   " \n"
+                                   "Use For: Fever and Pain relieve. \n"
+                                   " \n"
+                                   "Dosing: 1-2 tablets, 3 times a day. \n"
+                                   " \n"
+                                   "How It Works: Exhibits analgesic, antipyretic, and anti-inflammatory effects. \n"
+                                   " \n"
+                                   "Common Side Effects: diarrhea, constipation, nausea, stomach pain, bloating, and photosensitivity. \n"
+                                   " \n"
+                                   " \n"
+                                   "Note:  \n"
+                                   " \n"
+                                   "-Do not take if you have severe heart, liver, or kidney failure. \n"
+                                   " \n"
+                                   "-Do not take if you have stomach bleeding, perforation, or ulcers. \n"
+                                   " \n"
+                                   "-Do not take if you are pregnant or have increased risk of bleeding. \n"
+                                   " \n"
+                                   "-Do not take if you are allergic to any other non-steroidal anti-inflammatory drugs (NSAIDs). \n"
+                                   " \n"
+                                   "-Do not take if you have worsening or severe asthma. \n"
+                                   " \n"
+                                   "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs")
+
+            bot.answer_callback_query(call.id, "")
+
+
+        else:
             feverprefer(call.message.chat.id)
 
     elif call.data == "fever liquid child":
-        bot.send_message(call.message.chat.id,
-                         "Brand Name: Panadol Children Suspension \n"
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                       caption="Brand Name: Panadol Children Suspension \n"
                          " \n"
                          "Active Ingredient: Paracetamol \n"
                          " \n"
@@ -897,11 +986,20 @@ def callback_query(call):
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye "
                          " \n"
                          "swelling and difficulty in breathing occurs.")
-        bot.answer_callback_query(call.id, "")
+
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="calculate")],
+            [InlineKeyboardButton("No", callback_data="dont calculate")],
+        ]
+
+        bot.send_message(text="Do you need help calculating the dosage for the patient?",
+                         reply_markup=InlineKeyboardMarkup(keyboard),
+                         chat_id=call.message.chat.id)
+
 
     elif call.data == "fever chewable child":
-        bot.send_message(call.message.chat.id,
-                         "Brand Name: Panadol for Children Chewable Tablets \n"
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                       caption="Brand Name: Panadol for Children Chewable Tablets \n"
                          " \n"
                          "Active Ingredient: Paracetamol \n"
                          " \n"
@@ -925,11 +1023,20 @@ def callback_query(call):
                          "-If fever persists for more than 24H (4 doses), please seek medical attention as soon as possible. \n"
                          " \n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
-        bot.answer_callback_query(call.id, "")
+
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="calculate")],
+            [InlineKeyboardButton("No", callback_data="dont calculate")],
+        ]
+
+        bot.send_message(text="Do you need help calculating the dosage for the patient?",
+                         reply_markup=InlineKeyboardMarkup(keyboard),
+                         chat_id=call.message.chat.id)
+
 
     elif call.data == "fever suppository child":
-        bot.send_message(call.message.chat.id,
-                         "Brand Name: Remedol 125 Suppository  \n"
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                       caption="Brand Name: Remedol 125 Suppository  \n"
                          " \n"
                          "Active Ingredient: Paracetamol \n"
                          " \n"
@@ -952,7 +1059,114 @@ def callback_query(call):
                          "-If fever persists for more than 24H (4 doses), please seek medical attention as soon as possible. \n"
                          " \n"
                          "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+
+        keyboard = [
+            [InlineKeyboardButton("Yes", callback_data="calculate")],
+            [InlineKeyboardButton("No", callback_data="dont calculate")],
+        ]
+
+        bot.send_message(text="Do you need help calculating the dosage for the patient?",
+                         reply_markup=InlineKeyboardMarkup(keyboard),
+                         chat_id=call.message.chat.id)
+
+    elif call.data == "fever liquid adult":
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                       caption="Brand Name: Paximol 500 Oral Mixture \n"
+                               " \n"
+                               "Active Ingredient: Paracetamol \n"
+                               " \n"
+                               "Use For: Fever and Pain relieve. \n"
+                               " \n"
+                               "Dosing: one to two 5ml spoonful (500mg) 3-4 times a day. \n"
+                               " \n"
+                               "How It Works: Exhibits analgesic, antipyretic, and weak anti-inflammatory effects. \n"
+                               " \n"
+                               "Common Side Effects: Hematological reactions \n"
+                               " \n"
+                               " \n"
+                               "Note:  \n"
+                               " \n"
+                               "-Avoid taking with blood thinner medications. \n"
+                               " \n"
+                               "-Do not take more than 4 doses in any 24H period. \n"
+                               " \n"
+                               "-Do not take more frequently than 4H. \n"
+                               " \n"
+                               "-Do not take for more than 3 days unless told so. \n"
+                               " \n"
+                               "-If fever persists for more than 24H (4 doses), please seek medical attention as soon as possible. \n"
+                               " \n"
+                               "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs. \n")
+
         bot.answer_callback_query(call.id, "")
+
+    elif call.data == "fever suppository adult":
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                       caption="Brand Name: Poro Suppository 250 \n"
+                               " \n"
+                               "Active Ingredient: Paracetamol \n"
+                               " \n"
+                               "Use For: Fever and Pain relieve. \n"
+                               " \n"
+                               "Dosing: 2-3 suppository, every 3-4 times a week \n"
+                               " \n"
+                               "How It Works: Exhibits analgesic, antipyretic, and weak anti-inflammatory effects. \n"
+                               " \n"
+                               "Common Side Effects: Hematological reactions \n"
+                               " \n"
+                               " \n"
+                               "Note:  \n"
+                               " \n"
+                               "-Avoid taking with blood thinner medications. \n"
+                               " \n"
+                               "-Do not take more than 4 doses in any 24H period. \n"
+                               " \n"
+                               "-Do not take more frequently than 4H. \n"
+                               " \n"
+                               "-Do not take for more than 3 days unless told so. \n"
+                               " \n"
+                               "-If fever persists for more than 24H (4 doses), please seek medical attention as soon as possible. \n"
+                               " \n"
+                               "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs. \n")
+
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "fever tablet adult":
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                       caption="Brand Name: Tylenol \n"
+                               " \n"
+                               "Active Ingredient: Paracetamol \n"
+                               " \n"
+                               "Use For: Fever and Pain relieve. \n"
+                               " \n"
+                               "Dosing: 1-2 tablets every 4-6 hours \n"
+                               " \n"
+                               "How It Works: Exhibits analgesic, antipyretic, and weak anti-inflammatory effects. \n"
+                               " \n"
+                               "Common Side Effects: Hematological reactions \n"
+                               " \n"
+                               " \n"
+                               "Note:  \n"
+                               " \n"
+                               "-Avoid taking with blood thinner medications. \n"
+                               " \n"
+                               "-Do not take more than 4 doses in any 24H period. \n"
+                               " \n"
+                               "-Do not take more frequently than 4H. \n"
+                               " \n"
+                               "-Do not take for more than 3 days unless told so. \n"
+                               " \n"
+                               "-If fever persists for more than 24H (4 doses), please seek medical attention as soon as possible. \n"
+                               " \n"
+                               "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs. \n")
+
+        bot.answer_callback_query(call.id, "")
+
+    elif call.data == "calculate":
+        getweight(call.message.chat.id)
+
+
+
 
 
 
