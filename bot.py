@@ -441,7 +441,7 @@ def feverallergy(message, paracetamol):
 
     msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
                            chat_id=message)
-    bot.register_next_step_handler(msg, fevermsghandler())
+    bot.register_next_step_handler(msg, fevermsghandler)
 
 
 @bot.callback_query_handler(func=lambda call: True)
