@@ -81,21 +81,19 @@ def getweight(message):
 
 
 def calculate(message):
-    # mass = message.text
-    # if len(panadol) > 0:
-    #     lowmass = mass * 10
-    #     highmass = mass * 20
-    #     bot.send_message(
-    #         text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
-    #         chat_id=message.chat.id)
-    # else:
-    #     lowmass = mass * 10
-    #     highmass = mass * 15
-    #     bot.send_message(
-    #         text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
-    #         chat_id=message.chat.id)
-    bot.send_message(text="Please type the weight of the patient in kilograms.",
-                     chat_id=message.chat.id)
+    mass = message.text
+    if len(panadol) > 0:
+        lowmass = mass * 10
+        highmass = mass * 20
+        bot.send_message(
+            text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
+            chat_id=message.chat.id)
+    else:
+        lowmass = mass * 10
+        highmass = mass * 15
+        bot.send_message(
+            text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
+            chat_id=message.chat.id)
 
 
 def fevermsghandler(message):
