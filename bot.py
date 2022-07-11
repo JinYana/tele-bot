@@ -74,6 +74,7 @@ def fevermsghandler(message):
     if message.text == "Diclofenac" \
             or message.text == "Both Paracetamol and Ibuprofen" \
             or message.text == "Ibuprofen":
+        panadol.clear()
 
         feverimproved(message.chat.id, False)
 
@@ -85,6 +86,7 @@ def fevermsghandler(message):
 
     elif message.text == "Traditional Chinese Medicine" \
             or message.text == "No, I have not tried any fever medication yet":
+        panadol.clear()
 
         feverallergy(message.chat.id, False)
 
@@ -259,7 +261,7 @@ def feverprefer(message):
             ]
 
     bot.send_message(
-        text="Is pregnancy an issue to the patient?",
+        text="What will the patient prefer?",
         reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 
