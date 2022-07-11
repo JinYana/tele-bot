@@ -97,6 +97,9 @@ def feverallergy(message, paracetamol):
         mark = ReplyKeyboardMarkup(one_time_keyboard=True)
         for i in keyboard:
             mark.add(i)
+        msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
+                               chat_id=message)
+        bot.register_next_step_handler(msg, feverallergymsghandler, paracetamol=True)
 
 
     else:
@@ -115,14 +118,35 @@ def feverallergy(message, paracetamol):
         mark = ReplyKeyboardMarkup(one_time_keyboard=True)
         for i in keyboard:
             mark.add(i)
+        msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
+                               chat_id=message)
+        bot.register_next_step_handler(msg, feverallergymsghandler, paracetamol=False)
 
-    msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
-                           chat_id=message)
-    bot.register_next_step_handler(msg, feverallergymsghandler)
 
 
-def feverallergymsghandler(message):
-    if True:
+
+def feverallergymsghandler(message, paracetamol):
+
+    if (message.text == "Ibuprofen" and paracetamol and person[0] == "a") \
+            or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
+        0] == "a") \
+            or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "a"): \
+            bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
+                                  "Be kindly advised to seek treatment from a doctor or a healthcare professional "
+                                  "as soon as possible. Get well soon! \n"
+                                  "\n"
+                                  "In the meantime, what the patient can do are: \n"
+                                  "\n"
+                                  "-Drink plenty of fluids"
+                                  "-Avoid caffeine of any form"
+                                  "-Take plenty of rest"
+                                  "-Place cool tower to the skin near the neck and to the armpits",
+                             chat_id=message.chat.id)
+
+    elif (message.text == "Ibuprofen" and paracetamol and person[0] == "c") \
+            or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
+        0] == "c") \
+            or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "c"):
         bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
                               "Be kindly advised to seek treatment from a doctor or a healthcare professional "
                               "as soon as possible. Get well soon! \n"
@@ -130,43 +154,11 @@ def feverallergymsghandler(message):
                               "In the meantime, what the patient can do are: \n"
                               "\n"
                               "-Drink plenty of fluids"
-                              "-Avoid caffeine of any form"
                               "-Take plenty of rest"
-                              "-Place cool tower to the skin near the neck and to the armpits",
+                              "-Make sure the child’s environment is not too hot and is comfortable"
+                              "-Dress child in light clothing"
+                              "-Sponge with room temperature water to the skin near the neck and to the armpits",
                          chat_id=message.chat.id)
-
-    # if (message.text == "Ibuprofen" and paracetamol) \
-    #         or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
-    #     0] == "a") \
-    #         or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "a"): \
-    #         bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
-    #                               "Be kindly advised to seek treatment from a doctor or a healthcare professional "
-    #                               "as soon as possible. Get well soon! \n"
-    #                               "\n"
-    #                               "In the meantime, what the patient can do are: \n"
-    #                               "\n"
-    #                               "-Drink plenty of fluids"
-    #                               "-Avoid caffeine of any form"
-    #                               "-Take plenty of rest"
-    #                               "-Place cool tower to the skin near the neck and to the armpits",
-    #                          chat_id=message.chat.id)
-    #
-    # elif (message.text == "Ibuprofen" and paracetamol and person[0] == "c") \
-    #         or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
-    #     0] == "c") \
-    #         or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "c"):
-    #     bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
-    #                           "Be kindly advised to seek treatment from a doctor or a healthcare professional "
-    #                           "as soon as possible. Get well soon! \n"
-    #                           "\n"
-    #                           "In the meantime, what the patient can do are: \n"
-    #                           "\n"
-    #                           "-Drink plenty of fluids"
-    #                           "-Take plenty of rest"
-    #                           "-Make sure the child’s environment is not too hot and is comfortable"
-    #                           "-Dress child in light clothing"
-    #                           "-Sponge with room temperature water to the skin near the neck and to the armpits",
-    #                      chat_id=message.chat.id)
 
 
 def triedmedicineduration(message):
@@ -655,11 +647,13 @@ def callback_query(call):
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "how long fever child":
+        person.clear()
         howlong(call.message.chat.id, "fever", 'c')
         person.append("c")
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "how long fever adult":
+        person.clear()
         howlong(call.message.chat.id, "fever", "a")
         person.append("a")
         bot.answer_callback_query(call.id, "")
