@@ -585,7 +585,7 @@ def breastmilk(message):
                      chat_id=message)
 
 def extraD(message):
-    bot.send_message(text="(If patient is already using oral rehydration salts, continue to take them until diarrhoea is resolved. If not, take oral hydration salts with the recommended medication.) \n"
+    bot.send_photo(photo="https://imgur.com/qpxm0ci", caption="(If patient is already using oral rehydration salts, continue to take them until diarrhoea is resolved. If not, take oral hydration salts with the recommended medication.) \n"
                           " \n"
                           "Brand Name: Hydralyte \n"
                           " \n"
@@ -707,7 +707,7 @@ def callback_query(call):
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "tablets":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/d2k1shv",
                        caption="We recommend using Ultracarbon"
                                "\n"
                                "Brand Name: Ultracarbon \n"
@@ -738,7 +738,7 @@ def callback_query(call):
 
 
     elif call.data == "capsules":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/8DCAkyT",
                        caption="We recommend using Norit\n"
                                "Brand Name: Norit \n"
                                "\n"
@@ -767,7 +767,7 @@ def callback_query(call):
 
 
     elif call.data == "liquid":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/2eoTXhM",
                        caption="We recommend using Kaomix\n"
                                "Brand Name: Kaomix \n"
                                "\n"
@@ -797,7 +797,7 @@ def callback_query(call):
 
 
     elif call.data == "powder":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/3vgn1kc",
                        caption="We recommend using Smecta\n"
                                "Brand Name: Smecta \n"
                                "\n"
@@ -920,7 +920,7 @@ def callback_query(call):
         else:
             if len(panadol) > 0:
 
-                bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/8sTw0ok",
                                caption="Brand Name: Brufen \n"
                                        " \n"
                                        "Active Ingredient: Ibuprofen \n"
@@ -974,7 +974,7 @@ def callback_query(call):
         breastmilk(call.message.chat.id)
 
     elif call.data == "fever liquid child":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/sXM1eFb",
                        caption="Brand Name: Panadol Children Suspension \n"
                          " \n"
                          "Active Ingredient: Paracetamol \n"
@@ -1008,7 +1008,7 @@ def callback_query(call):
 
 
     elif call.data == "fever chewable child":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/c68X91T",
                        caption="Brand Name: Panadol for Children Chewable Tablets \n"
                          " \n"
                          "Active Ingredient: Paracetamol \n"
@@ -1067,7 +1067,7 @@ def callback_query(call):
 
 
     elif call.data == "fever liquid adult":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/42MBYBL",
                        caption="Brand Name: Paximol 500 Oral Mixture \n"
                                " \n"
                                "Active Ingredient: Paracetamol \n"
@@ -1098,7 +1098,7 @@ def callback_query(call):
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "fever suppository adult":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/VWzX634",
                        caption="Brand Name: Poro Suppository 250 \n"
                                " \n"
                                "Active Ingredient: Paracetamol \n"
@@ -1129,7 +1129,7 @@ def callback_query(call):
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "fever tablet adult":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/zSFU9mc",
                        caption="Brand Name: Tylenol \n"
                                " \n"
                                "Active Ingredient: Paracetamol \n"
@@ -1165,7 +1165,7 @@ def callback_query(call):
 
     elif call.data == "dc":
         if len(panadol) > 0:
-            bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+            bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/xAqNXsb",
                            caption="Brand Name: Neurofen \n"
                                    " \n"
                                    "Active Ingredient: Ibuprofen \n"
