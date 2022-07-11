@@ -182,7 +182,7 @@ def feverallergymsghandler(message, paracetamol):
             or message.text == "Paracetamol" or message.text == "No allergies to the medications listed":
         bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
                          chat_id=message.chat.id)
-        dengue(message.chat.id,)
+        dengue(message.chat.id)
 
 def dengue(message):
 
