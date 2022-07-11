@@ -137,10 +137,13 @@ def feverallergymsghandler(message, paracetamol):
                                   "\n"
                                   "In the meantime, what the patient can do are: \n"
                                   "\n"
-                                  "-Drink plenty of fluids"
-                                  "-Avoid caffeine of any form"
-                                  "-Take plenty of rest"
-                                  "-Place cool tower to the skin near the neck and to the armpits",
+                                  "-Drink plenty of fluids \n"
+                                  "\n"
+                                  "-Avoid caffeine of any form \n"
+                                  "\n"
+                                  "-Take plenty of rest \n"
+                                  "\n"
+                                  "-Place cool tower to the skin near the neck and to the armpits \n",
                              chat_id=message.chat.id)
 
     elif (message.text == "Ibuprofen" and paracetamol and person[0] == "c") \
@@ -153,11 +156,15 @@ def feverallergymsghandler(message, paracetamol):
                               "\n"
                               "In the meantime, what the patient can do are: \n"
                               "\n"
-                              "-Drink plenty of fluids"
-                              "-Take plenty of rest"
-                              "-Make sure the child’s environment is not too hot and is comfortable"
-                              "-Dress child in light clothing"
-                              "-Sponge with room temperature water to the skin near the neck and to the armpits",
+                              "-Drink plenty of fluids \n"
+                              "\n"
+                              "-Take plenty of rest \n"
+                              "\n"
+                              "-Make sure the child’s environment is not too hot and is comfortable \n"
+                              "\n"
+                              "-Dress child in light clothing \n"
+                              "\n"
+                              "-Sponge with room temperature water to the skin near the neck and to the armpits \n",
                          chat_id=message.chat.id)
 
 
