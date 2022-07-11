@@ -81,7 +81,8 @@ def getweight(message):
 
 
 def calculate(message):
-    mass = message.text
+    mass = str(message.text)
+    mass = int(mass)
     if len(panadol) > 0:
         lowmass = mass * 10
         highmass = mass * 20
