@@ -76,15 +76,7 @@ def getweight(message):
 
     bot.register_next_step_handler(msg, calculate)
 
-def doyouneedhelp(message):
-    keyboard = [
-        [InlineKeyboardButton("Yes", callback_data="calculate")],
-        [InlineKeyboardButton("No", callback_data="dont calculate")],
-    ]
 
-    bot.send_message(text="Do you need help calculating the dosage for the patient?",
-                     reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
 
 def calculate(message):
     mass = int(message.text)
@@ -567,6 +559,15 @@ def feverimproved(message, paracetamol):
                      reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
 
+def doyouneedhelp(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="calculate")],
+        [InlineKeyboardButton("No", callback_data="dont calculate")],
+    ]
+
+    bot.send_message(text="Do you need help calculating the dosage for the patient?",
+                     reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
 
 
 
