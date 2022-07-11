@@ -85,7 +85,7 @@ def fevermsghandler(message):
 
 
 def feverallergymsghandler(message, paracetamol):
-    if (message.text == "Ibuprofen") \
+    if (message.text == "Ibuprofen" and paracetamol and person[0] == "a") \
             or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
         0] == "a") \
             or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "a"): \
@@ -427,6 +427,7 @@ def feverallergy(message, paracetamol):
 
     msg = bot.send_message(text="Has the patient tried any of the fever medication below?", reply_markup=mark,
                            chat_id=message)
+    bot.register_next_step_handler(msg, feverallergymsghandler)
 
 
 @bot.callback_query_handler(func=lambda call: True)
