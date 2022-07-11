@@ -133,7 +133,7 @@ def feverallergymsghandler(message):
                               "-Avoid caffeine of any form"
                               "-Take plenty of rest"
                               "-Place cool tower to the skin near the neck and to the armpits",
-                         chat_id=message)
+                         chat_id=message.chat.id)
 
     # if (message.text == "Ibuprofen" and paracetamol) \
     #         or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
