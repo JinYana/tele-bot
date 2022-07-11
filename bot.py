@@ -81,10 +81,10 @@ def fevermsghandler(message):
 
     elif message.text == "Traditional Chinese Medicine" \
             or message.text == "No, I have not tried any fever medication yet": \
-            feverallergy(message.chat.id, False)
+            feverallergy(message.chat.id)
 
 
-def feverallergymsghandler(message, paracetamol):
+def feverallergymsghandler(message):
     if message.text == "Ibuprofen":
         bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
                               "Be kindly advised to seek treatment from a doctor or a healthcare professional "
