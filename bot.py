@@ -182,8 +182,6 @@ def feverallergymsghandler(message, paracetamol):
     elif (message.text == "Ibuprofen" and not paracetamol) \
             or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and not paracetamol) \
             or message.text == "Paracetamol" or message.text == "No allergies to the medications listed":
-        bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
-                         chat_id=message.chat.id)
         dengue(message.chat.id)
 
 def dengue(message):
@@ -198,6 +196,9 @@ def dengue(message):
             [InlineKeyboardButton("Yes", callback_data="no dengue")],
             [InlineKeyboardButton("No", callback_data="no dengue")],
         ]
+
+    bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
+                     chat_id=message)
 
 
     bot.send_message(
