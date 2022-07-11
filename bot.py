@@ -85,17 +85,20 @@ def fevermsghandler(message):
 
 
 def feverallergymsghandler(message, paracetamol):
-    bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
-                          "Be kindly advised to seek treatment from a doctor or a healthcare professional "
-                          "as soon as possible. Get well soon! \n"
-                          "\n"
-                          "In the meantime, what the patient can do are: \n"
-                          "\n"
-                          "-Drink plenty of fluids"
-                          "-Avoid caffeine of any form"
-                          "-Take plenty of rest"
-                          "-Place cool tower to the skin near the neck and to the armpits",
-                     chat_id=message.chat.id)
+    if message.text == "Ibuprofen":
+        bot.send_message(text="Oh no! It seems like both over-the-counter fever medications won’t work for you. "
+                              "Be kindly advised to seek treatment from a doctor or a healthcare professional "
+                              "as soon as possible. Get well soon! \n"
+                              "\n"
+                              "In the meantime, what the patient can do are: \n"
+                              "\n"
+                              "-Drink plenty of fluids"
+                              "-Avoid caffeine of any form"
+                              "-Take plenty of rest"
+                              "-Place cool tower to the skin near the neck and to the armpits",
+                         chat_id=message.chat.id)
+
+
     # if (message.text == "Ibuprofen" and paracetamol) \
     #         or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
     #     0] == "a") \
