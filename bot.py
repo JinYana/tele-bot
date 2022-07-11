@@ -439,7 +439,7 @@ def feverallergy(message, paracetamol):
     # bot.send_message(text="Alright.", reply_markup=ReplyKeyboardRemove(),
     #                  chat_id=message)
 
-    msg = bot.send_message(text="Has the patient tried any of the fever medication below?", reply_markup=mark,
+    msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
                            chat_id=message)
     bot.register_next_step_handler(msg, feverallergymsghandler)
 
