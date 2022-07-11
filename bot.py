@@ -87,13 +87,13 @@ def calculate(message):
         highmass = mass * 20
         bot.send_message(
             text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
-            chat_id=message.chat.id)
+            chat_id=message)
     else:
         lowmass = mass * 10
         highmass = mass * 15
         bot.send_message(
             text="The estimated dosing that the patient needs are between " + lowmass + " to " + highmass + "mg.",
-            chat_id=message.chat.id)
+            chat_id=message)
 
 
 def fevermsghandler(message):
