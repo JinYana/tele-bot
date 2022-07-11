@@ -96,8 +96,7 @@ def feverallergymsghandler(message, paracetamol):
                               "-Avoid caffeine of any form"
                               "-Take plenty of rest"
                               "-Place cool tower to the skin near the neck and to the armpits",
-                         chat_id=message.chat.id)
-
+                         chat_id=message)
 
     # if (message.text == "Ibuprofen" and paracetamol) \
     #         or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
@@ -131,8 +130,6 @@ def feverallergymsghandler(message, paracetamol):
     #                           "-Dress child in light clothing"
     #                           "-Sponge with room temperature water to the skin near the neck and to the armpits",
     #                      chat_id=message.chat.id)
-
-
 
 
 def triedmedicineduration(message):
@@ -196,8 +193,6 @@ def howlong(message, condition, age):
 
         bot.send_message(text="How long has the fever lasted?", reply_markup=InlineKeyboardMarkup(keyboard),
                          chat_id=message)
-
-
 
 
 def rawfood(message):
@@ -443,10 +438,6 @@ def feverallergy(message, paracetamol):
         msg = bot.send_message(text="Is the patient allergic to any of the medication?", reply_markup=mark,
                                chat_id=message)
         bot.register_next_step_handler(msg, feverallergymsghandler)
-
-
-
-
 
 
 @bot.callback_query_handler(func=lambda call: True)
