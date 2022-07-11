@@ -186,7 +186,7 @@ def feverallergymsghandler(message, paracetamol):
 
 def dengue(message):
 
-    if panadol.count() > 0:
+    if len(panadol) > 0:
         keyboard = [
             [InlineKeyboardButton("Yes", callback_data="got dengue")],
             [InlineKeyboardButton("No", callback_data="no dengue")],
@@ -859,7 +859,7 @@ def callback_query(call):
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "no prego":
-        # if panadol.count() > 0:
+        # if len(panadol) > 0:
         #     if person[0] == "c":
         #
         #     else:
