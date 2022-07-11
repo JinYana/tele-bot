@@ -25,7 +25,7 @@ def start(message):
     ]
     bot.send_message(text="Hi what can we do for you?", reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message.chat.id)
-    person.clear()
+
 
 
 def triedmedicine(message):
@@ -584,6 +584,33 @@ def breastmilk(message):
                      reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
 
+def extraD(message):
+    bot.send_message(text="(If patient is already using oral rehydration salts, continue to take them until diarrhoea is resolved. If not, take oral hydration salts with the recommended medication.) \n"
+                          " \n"
+                          "Brand Name: Hydralyte \n"
+                          " \n"
+                          "Active Ingredient: Oral Rehydration Salts \n"
+                          " \n"
+                          "Use For: Diarrhoea, Dehydration \n"
+                          " \n"
+                          "How It Works: Helps to replenish lost electrolytes and fluids during diarrhoea. \n"
+                          " \n"
+                          "Common Side Effects: Vomiting \n"
+                          " \n"
+                          "Note: -Not suitable for patients who are on electrolytes or fluid restriction. \n"
+                          " \n"
+                          "-Liquid preparations can be eaten like in the form of a popsicle by freezing it. \n"
+                          " \n"
+                          "-Powder should be dissolved in boiled cooled water. \n"
+                          " \n"
+                          "-Do not boil the solution. \n"
+                          " \n"
+                          "-Infants and children should be given in small amounts as often as possible during the first 24 hours of diarrhoea. \n"
+                          " \n"
+                          "- Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs. \n",
+                     chat_id=message)
+
+
 
 
 
@@ -704,6 +731,7 @@ def callback_query(call):
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling"
                                " and difficulty in breathing occurs.", )
+        extraD(call.message.chat.id)
 
         bot.answer_callback_query(call.id, "")
 
@@ -734,6 +762,7 @@ def callback_query(call):
                                "-Stop medication once diarrhea stops or constipations happens. \n"
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+        extraD(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
 
@@ -763,6 +792,7 @@ def callback_query(call):
                                "-Stop medication once diarrhea stops or constipations happens.\n"
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+        extraD(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
 
@@ -788,6 +818,7 @@ def callback_query(call):
                                "-Space 2 hours apart with any other medications. \n"
                                "\n"
                                "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs.")
+        extraD(call.message.chat.id)
         bot.answer_callback_query(call.id, "")
 
 
@@ -1170,9 +1201,72 @@ def callback_query(call):
 
 
 
+@bot.message_handler(commands=['adviceD'])
+def adviceD(message):
+    bot.send_message(text="-Intake more fluids \n"
+                          "-Avoid caffeine, alcohol, dairy, or acidic food \n"
+                          "-Avoid oily or spicy food that might cause diarrhoea \n"
+                          "-Have soft, well-cooked bland food such as porridge \n"
+                          "-Transition back to regular diet slowly \n"
+                          "-Avoid gaseous drinks to replace fluid loss \n"
+                          "-Avoid cold food and beverage \n",
+                     chat_id=message.chat.id)
+
+@bot.message_handler(commands=['adviceF'])
+def adviceF(message):
+    bot.send_message(text="For adults: \n"
+                          "-Drink plenty of fluids \n"
+                          "-Avoid caffeine of any form \n"
+                          "-Take plenty of rest \n"
+                          "-Place cool tower to the skin near the neck and to the armpits \n"
+                          " \n"
+                          " \n"
+                          "For children: \n"
+                          "-Drink plenty of fluids \n"
+                          "-Take plenty of rest \n"
+                          "-Make sure the child’s environment is not too hot and is comfortable \n"
+                          "-Dress child in light clothing-Sponge with room temperature water to the skin near the neck and to the armpits",
+                     chat_id=message.chat.id)
 
 
+@bot.message_handler(commands=['referD'])
+def adviceD(message):
+    bot.send_message(text="For adults: \n"
+                          "-Diarrhoea last more than 3 days \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Fever above 39 degrees Celsius \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin \n"
+                          " \n"
+                          " \n"
+                          "For children: \n"
+                          "-Diarrhoea last more than 3 days \n"
+                          "-Black sticky or bloody stools \n"
+                          "-Severe pain in the stomach or anus area \n"
+                          "-Sunken stomach, eyes or cheeks-Sleepy or unresponsive \n"
+                          "-Cries with no tears or dry mouth \n"
+                          "-Symptoms of dehydration such as little or no urine, dark colored-urine, weakness, dizziness, lightheadedness, dry mouth, or skin \n",
+                     chat_id=message.chat.id)
 
+
+@bot.message_handler(commands=['referF'])
+def adviceF(message):
+    bot.send_message(text="For adults: \n"
+                          "-Temperature is or higher than 39.4°C \n"
+                          "-Symptoms worsen or fever lasting more than 3 days \n"
+                          "-Feeling confused or stiff neck-Skin rashes developing \n"
+                          "-Very bad diarrhoea, headache or vomiting occurs \n"
+                          "-Difficulty in breathing or chest pain-If patient have cancer, heart diseases, diabetes, AIDS or are taking medicines that might weaken the immune system \n"
+                          " \n"
+                          " \n"
+                          "For children: \n"
+                          "-Temperature is higher than 40°C or fever lasting more than 3 days \n"
+                          "-Red or purple rashes developing \n"
+                          "-Headache, stiff neck or is discomfort under bright light \n"
+                          "-Difficulty in breathing, faints or not responding \n"
+                          "-Has a fit or lacks energy-Look more unwell \n"
+                          "-Display symptoms of dehydration such as sunken eyes, dry diapers, and poor elasticity \n",
+                     chat_id=message.chat.id)
 
 
 # def jerod(message):
