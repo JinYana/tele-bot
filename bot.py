@@ -85,7 +85,7 @@ def fevermsghandler(message):
 
 
 def feverallergymsghandler(message, paracetamol):
-    if (message.text == "Ibuprofen" and paracetamol and person[0] == "a") \
+    if (message.text == "Ibuprofen" and paracetamol) \
             or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and paracetamol and person[
         0] == "a") \
             or (message.text == "Ibuprofen AND Paracetamol" and not paracetamol and person[0] == "a"): \
@@ -166,6 +166,8 @@ def howlong(message, condition, age):
             [InlineKeyboardButton("More than 3 days", callback_data="serious diarrhoea")],
             [InlineKeyboardButton("Less than 3 days", callback_data="which medincine have been tried")],
         ]
+        bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard),
+                         chat_id=message)
     else:
         if age == "c":
             keyboard = [
@@ -178,8 +180,10 @@ def howlong(message, condition, age):
                 [InlineKeyboardButton("Less than 3 days", callback_data="fever symptoms adult")],
             ]
 
-    bot.send_message(text="How long has the diarrhoea lasted?", reply_markup=InlineKeyboardMarkup(keyboard),
-                     chat_id=message)
+        bot.send_message(text="How long has the fever lasted?", reply_markup=InlineKeyboardMarkup(keyboard),
+                         chat_id=message)
+
+
 
 
 def rawfood(message):
