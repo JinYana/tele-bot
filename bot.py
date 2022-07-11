@@ -11,12 +11,14 @@ bot = telebot.TeleBot(API_KEY)
 
 person = []
 panadol = []
+pallergy = []
 
 
 @bot.message_handler(commands=['start'])
 def start(message):
     person.clear()
     panadol.clear()
+    pallergy.clear()
     keyboard = [
         [InlineKeyboardButton("I need help with diarrhoea!", callback_data="dia"), ],
         [InlineKeyboardButton("I need help with fever!", callback_data="fever"), ]
@@ -206,11 +208,14 @@ def feverallergymsghandler(message, paracetamol):
     elif (message.text == "Ibuprofen" and not paracetamol) \
             or (message.text == "Any other non-steroidal anti-inflammatory drugs (NSAIDs)" and not paracetamol) \
             or message.text == "Paracetamol" or message.text == "No allergies to the medications listed":
+        pallergy.clear()
+        if message.text == "Paracetamol":
+            pallergy.append("yes")
         dengue(message.chat.id)
 
 def dengue(message):
 
-    if len(panadol) > 0:
+    if len(panadol) > 0 or len(pallergy) > 0:
         keyboard = [
             [InlineKeyboardButton("Yes", callback_data="got dengue")],
             [InlineKeyboardButton("No", callback_data="no dengue")],
@@ -250,10 +255,10 @@ def dengue(message):
         reply_markup=InlineKeyboardMarkup(keyboard), chat_id=message)
 
 def prego(message):
-    if panadol[0] == "yes":
+    if len(panadol) > 0 or len(pallergy) > 0:
         keyboard = [
             [InlineKeyboardButton("Yes", callback_data="got prego")],
-            [InlineKeyboardButton("No", callback_data="no dengue")],
+            [InlineKeyboardButton("No", callback_data="no prego")],
         ]
     else:
         keyboard = [
@@ -566,6 +571,16 @@ def doyouneedhelp(message):
     ]
 
     bot.send_message(text="Do you need help calculating the dosage for the patient?",
+                     reply_markup=InlineKeyboardMarkup(keyboard),
+                     chat_id=message)
+
+def breastmilk(message):
+    keyboard = [
+        [InlineKeyboardButton("Yes", callback_data="dc")],
+        [InlineKeyboardButton("No", callback_data="dc")],
+    ]
+
+    bot.send_message(text="Is breastfeeding an issue to the patient?",
                      reply_markup=InlineKeyboardMarkup(keyboard),
                      chat_id=message)
 
@@ -925,40 +940,7 @@ def callback_query(call):
         bot.answer_callback_query(call.id, "")
 
     elif call.data == "no prego":
-        if len(panadol) > 0:
-            bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
-                           caption="Brand Name: Neurofen \n"
-                                   " \n"
-                                   "Active Ingredient: Ibuprofen \n"
-                                   " \n"
-                                   "Use For: Fever and Pain relieve. \n"
-                                   " \n"
-                                   "Dosing: 1-2 tablets, 3 times a day. \n"
-                                   " \n"
-                                   "How It Works: Exhibits analgesic, antipyretic, and anti-inflammatory effects. \n"
-                                   " \n"
-                                   "Common Side Effects: diarrhea, constipation, nausea, stomach pain, bloating, and photosensitivity. \n"
-                                   " \n"
-                                   " \n"
-                                   "Note:  \n"
-                                   " \n"
-                                   "-Do not take if you have severe heart, liver, or kidney failure. \n"
-                                   " \n"
-                                   "-Do not take if you have stomach bleeding, perforation, or ulcers. \n"
-                                   " \n"
-                                   "-Do not take if you are pregnant or have increased risk of bleeding. \n"
-                                   " \n"
-                                   "-Do not take if you are allergic to any other non-steroidal anti-inflammatory drugs (NSAIDs). \n"
-                                   " \n"
-                                   "-Do not take if you have worsening or severe asthma. \n"
-                                   " \n"
-                                   "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs")
-
-
-
-
-        else:
-            feverprefer(call.message.chat.id)
+        breastmilk(call.message.chat.id)
 
     elif call.data == "fever liquid child":
         bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
@@ -1148,6 +1130,43 @@ def callback_query(call):
 
     elif call.data == "calculate":
         getweight(call.message.chat.id)
+
+
+    elif call.data == "dc":
+        if len(panadol) > 0:
+            bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+                           caption="Brand Name: Neurofen \n"
+                                   " \n"
+                                   "Active Ingredient: Ibuprofen \n"
+                                   " \n"
+                                   "Use For: Fever and Pain relieve. \n"
+                                   " \n"
+                                   "Dosing: 1-2 tablets, 3 times a day. \n"
+                                   " \n"
+                                   "How It Works: Exhibits analgesic, antipyretic, and anti-inflammatory effects. \n"
+                                   " \n"
+                                   "Common Side Effects: diarrhea, constipation, nausea, stomach pain, bloating, and photosensitivity. \n"
+                                   " \n"
+                                   " \n"
+                                   "Note:  \n"
+                                   " \n"
+                                   "-Do not take if you have severe heart, liver, or kidney failure. \n"
+                                   " \n"
+                                   "-Do not take if you have stomach bleeding, perforation, or ulcers. \n"
+                                   " \n"
+                                   "-Do not take if you are pregnant or have increased risk of bleeding. \n"
+                                   " \n"
+                                   "-Do not take if you are allergic to any other non-steroidal anti-inflammatory drugs (NSAIDs). \n"
+                                   " \n"
+                                   "-Do not take if you have worsening or severe asthma. \n"
+                                   " \n"
+                                   "-Stop medication and see a doctor immediately when allergy symptoms such as rash, eye swelling and difficulty in breathing occurs")
+
+
+
+
+        else:
+            feverprefer(call.message.chat.id)
 
 
 
