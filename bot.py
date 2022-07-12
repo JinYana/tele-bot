@@ -81,7 +81,7 @@ def getweight(message):
 
 
 def calculate(message):
-    mass = int(message.text)
+
     temp = message.text
 
     if not temp.isdigit():
@@ -89,7 +89,9 @@ def calculate(message):
             text="Please enter a number",
             chat_id=message.chat.id)
         bot.register_next_step_handler(msg, getweight)
+
     if len(panadol) > 0:
+        mass = int(message.text)
         lowmass = mass * 10
         highmass = mass * 20
         bot.send_message(
