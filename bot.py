@@ -1045,7 +1045,7 @@ def callback_query(call):
 
 
     elif call.data == "fever suppository child":
-        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/DvjpvEN",
+        bot.send_photo(chat_id=call.message.chat.id, photo="https://imgur.com/3MoCpCQ",
                        caption="Brand Name: Remedol 125 Suppository  \n"
                          " \n"
                          "Active Ingredient: Paracetamol \n"
