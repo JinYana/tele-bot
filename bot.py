@@ -98,6 +98,7 @@ def calculate(message):
             text="The estimated dosing that the patient needs are between " + str(lowmass) + " to " + str(highmass) + "mg.",
             chat_id=message.chat.id)
     else:
+        mass = int(message.text)
         lowmass = mass * 10
         highmass = mass * 15
         bot.send_message(
